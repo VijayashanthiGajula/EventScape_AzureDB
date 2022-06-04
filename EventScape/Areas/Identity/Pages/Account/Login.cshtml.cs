@@ -130,7 +130,7 @@ namespace EventScape.Areas.Identity.Pages.Account
                     var roles = await _signInManager.UserManager.GetRolesAsync(user);
                     if (roles.Any())
                     {
-                        //"Manager,User"
+                        //"NonUser,User,Admin,......." joins all roles seperating with ","
                         var roleClaim = string.Join(",", roles);
                         claims.Add(new Claim("Roles", roleClaim));
                     }

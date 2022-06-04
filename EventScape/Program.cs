@@ -44,18 +44,20 @@ app.MapRazorPages();
 app.Run();
 void AddAuthorizationPolicies(IServiceCollection services)
 {
-     
-    services.AddAuthorization(options =>
-       options.AddPolicy("RequireAdmin", policy => policy.RequireClaim("Administrator"))
-                                     );
-    services.AddAuthorization(options =>
-       options.AddPolicy("RequireUser", policy => policy.RequireClaim("UserRole"))
-                                     );
-    services.AddAuthorization(options =>
-        options.AddPolicy("RequireNonUser", policy => policy.RequireClaim("NonRegisteredUser"))
-                                     );
-    services.AddAuthorization(options =>
-      options.AddPolicy("RequireBlockedUser", policy => policy.RequireClaim("BlockedUser"))
-                                     );
+    //this is a manual work of assigning policies, which is a bad practice..
+    //So to automatize this feature I have created a core folder/contants and declared constants 
+
+    //services.AddAuthorization(options =>
+    //   options.AddPolicy("RequireAdmin", policy => policy.RequireClaim("Administrator"))
+    //                                 );
+    //services.AddAuthorization(options =>
+    //   options.AddPolicy("RequireUser", policy => policy.RequireClaim("UserRole"))
+    //                                 );
+    //services.AddAuthorization(options =>
+    //    options.AddPolicy("RequireNonUser", policy => policy.RequireClaim("NonRegisteredUser"))
+    //                                 );
+    //services.AddAuthorization(options =>
+    //  options.AddPolicy("RequireBlockedUser", policy => policy.RequireClaim("BlockedUser"))
+    //                                 );
 
 }
