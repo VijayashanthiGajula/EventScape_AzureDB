@@ -11,9 +11,19 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();;
+//var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
+
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseSqlServer(connectionString));;
+
+//builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<ApplicationDbContext>();;
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+AddAuthorizationPolicies(builder.Services);
+
+
 
 var app = builder.Build();
 
@@ -38,3 +48,8 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 app.Run();
+void AddAuthorizationPolicies(IServiceCollection services)
+{
+    services.AddAuthorization(options =>
+    options.AddPolicy("AdminOnly", policy => policy.RequireClaim("AdminNumber")));
+}
