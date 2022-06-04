@@ -3,23 +3,17 @@ using Microsoft.EntityFrameworkCore;
 using EventScape.Data;
 using EventScape.Areas.Identity.Data;
 
+
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));;
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();;
-//var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
 
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseSqlServer(connectionString));;
-
-//builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-//    .AddEntityFrameworkStores<ApplicationDbContext>();;
-
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 AddAuthorizationPolicies(builder.Services);
 
@@ -50,6 +44,18 @@ app.MapRazorPages();
 app.Run();
 void AddAuthorizationPolicies(IServiceCollection services)
 {
+     
     services.AddAuthorization(options =>
-    options.AddPolicy("AdminOnly", policy => policy.RequireClaim("AdminNumber")));
+       options.AddPolicy("RequireAdmin", policy => policy.RequireClaim("Administrator"))
+                                     );
+    services.AddAuthorization(options =>
+       options.AddPolicy("RequireUser", policy => policy.RequireClaim("UserRole"))
+                                     );
+    services.AddAuthorization(options =>
+        options.AddPolicy("RequireNonUser", policy => policy.RequireClaim("NonRegisteredUser"))
+                                     );
+    services.AddAuthorization(options =>
+      options.AddPolicy("RequireBlockedUser", policy => policy.RequireClaim("BlockedUser"))
+                                     );
+
 }
