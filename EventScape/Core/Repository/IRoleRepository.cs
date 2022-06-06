@@ -5,6 +5,6 @@ namespace EventScape.Core.Repository
 {
     public interface IRoleRepository
     {
-        ICollection<IdentityRole> GetRoles { get; }
+        ICollection<IdentityRole> GetRoles();
     }
 }

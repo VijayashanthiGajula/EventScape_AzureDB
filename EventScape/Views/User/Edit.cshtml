@@ -10,7 +10,7 @@
     <div class="row g-5">
         <div class="col-md-7 col-lg-8">
 
-            @using (Html.BeginForm("OnPost", "User"))
+            @using (Html.BeginForm("OnPost", "User"))// best practice using helper tags
             {
                 @Html.HiddenFor(h => @Model.User.Id);
                 <div class="row g-3">
@@ -45,16 +45,16 @@
 
                 <div class="my-3">
                     
-                  @*  @for (int i = 0; i < @Model.Roles.Count(); i++)
+                    @for (int i = 0; i < @Model.Roles.Count(); i++)
                     {
                         <div class="form-check">
                             @Html.CheckBoxFor(c => @Model.Roles[i].Selected)
                             @Html.HiddenFor(h => @Model.Roles[i].Value)
                             
-                            @Html.LabelFor(l => @Model.Roles[i].Selected, @Model.User.Roles[i].Text, new {@class="form-check-label"})
+                            @Html.LabelFor(l => @Model.Roles[i].Selected, @Model.Roles[i].Text, new {@class="form-check-label"})
                             @Html.HiddenFor(h => @Model.Roles[i].Text)
                         </div>
-                    }*@
+                    }
                 </div>
 
                 <hr class="my-4">
