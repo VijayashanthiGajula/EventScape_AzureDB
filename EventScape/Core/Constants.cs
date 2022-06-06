@@ -12,7 +12,7 @@
 
         public static class Policies
         {
-            public const string RequireAdmin = "Administrator";
+            public const string RequireAdmin = "RequireAdmin";
             public const string RequireNonUser = "RequireNonUser";
             public const string RequireUser = "RequireUser";
             public const string RequireBlockedUser = "RequireBlockedUser";

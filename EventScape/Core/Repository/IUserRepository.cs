@@ -6,7 +6,7 @@ namespace EventScape.Core.Repository
     {
         ICollection<ApplicationUser> GetUsers();
         ApplicationUser GetUserById(string id);
-         
+        ApplicationUser UpdateUser(ApplicationUser user);    
 
     }
 }

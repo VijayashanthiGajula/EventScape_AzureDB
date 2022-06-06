@@ -8,7 +8,7 @@ namespace EventScape.Migrations
     {
         private string NonRegisteredUserRoleID = Guid.NewGuid().ToString();
         private string UserRoleId = Guid.NewGuid().ToString();
-        private string AdminRoleId = Guid.NewGuid().ToString();
+        private string AdministratorRoleId = Guid.NewGuid().ToString();
         private string BlockedRoleId = Guid.NewGuid().ToString();
 
         private string User1Id = Guid.NewGuid().ToString();
@@ -30,7 +30,7 @@ namespace EventScape.Migrations
             migrationBuilder.Sql(@$"INSERT INTO [dbo].[AspNetRoles] ([Id],[Name],[NormalizedName],[ConcurrencyStamp])
             VALUES ('{UserRoleId}', 'UserRole', 'UserRole', null);");
             migrationBuilder.Sql(@$"INSERT INTO [dbo].[AspNetRoles] ([Id],[Name],[NormalizedName],[ConcurrencyStamp])
-            VALUES ('{AdminRoleId}', 'Admin', 'Administrator', null);");
+            VALUES ('{AdministratorRoleId}', 'Administrator', 'Administrator', null);");
             migrationBuilder.Sql(@$"INSERT INTO [dbo].[AspNetRoles] ([Id],[Name],[NormalizedName],[ConcurrencyStamp])
             VALUES ('{BlockedRoleId}', 'BlockedUser', 'BlockedUser', null);");
         }
@@ -77,7 +77,7 @@ N'YUPAFWNGZI2UC5FOITC7PX5J7XZTAZAA', N'8e150555-a20d-4610-93ff-49c5af44f749', NU
            ([UserId]
            ,[RoleId])
         VALUES
-           ('{User1Id}', '{AdminRoleId}');
+           ('{User1Id}', '{AdministratorRoleId}');
         INSERT INTO [dbo].[AspNetUserRoles]
            ([UserId]
            ,[RoleId])

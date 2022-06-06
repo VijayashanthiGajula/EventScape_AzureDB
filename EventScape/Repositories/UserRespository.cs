@@ -23,5 +23,12 @@ namespace EventScape.Repositories
         {
             return _context.Users.ToList();
         }
+
+        public ApplicationUser UpdateUser(ApplicationUser user)
+        {
+            _context.Update(user);
+            _context.SaveChanges(); 
+            return user;
+        }
     }
 }

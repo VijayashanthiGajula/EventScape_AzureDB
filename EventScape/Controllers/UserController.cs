@@ -35,22 +35,89 @@ namespace EventScape.Controllers
                                                             role.Id,
                                                            userRoles.Any(userrole => userrole.Contains(role.Name))
                                                             )).ToList();
-            var vm = new EditUserViewModel()
+            var UserData = new EditUserViewModel()
             {
                 User = user,
                 // Roles = roles
                 Roles = roleSelectListItem
             };
            
-            return View(vm);
+            return View(UserData);
            // return Content(user.LastName);
             //return Content(user.Email);
         }
 
         [HttpPost]
-        public async Task<IActionResult> OnPostAsync(EditUserViewModel vm)
+        public async Task<IActionResult> OnPostAsync(EditUserViewModel UserData)
         {
-            return View(vm);
+            var user = _UnitOfWork.User.GetUserById(UserData.User.Id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var userRolesInDb = await _signInManager.UserManager.GetRolesAsync(user);
+            //assigning userrole data
+            //foreach (var role in UserData.Roles)
+            //{
+            //    var assignedInDb = userRolesInDb.FirstOrDefault(Ur => Ur == role.Text);
+            //    if (role.Selected)
+            //    {
+            //        if (assignedInDb == null)
+            //        {
+            //            await _signInManager.UserManager.AddToRoleAsync(user, role.Text);
+            //           //AddRole
+
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (assignedInDb != null)
+            //        {
+            //            //RemoveRole
+            //            await _signInManager.UserManager.RemoveFromRoleAsync(user, role.Text);
+            //        }
+            //    }
+
+            //}
+
+            var rolesToAdd = new List<string>();
+            var rolesToDelete = new List<string>();
+
+            foreach (var role in UserData.Roles)
+            {
+                var assignedInDb = userRolesInDb.FirstOrDefault(ur => ur == role.Text);
+                if (role.Selected)
+                {
+                    if (assignedInDb == null)
+                    {
+                        rolesToAdd.Add(role.Text);
+                    }
+                }
+                else
+                {
+                    if (assignedInDb != null)
+                    {
+                        rolesToDelete.Add(role.Text);
+                    }
+                }
+            }
+
+            if (rolesToAdd.Any())
+            {
+                await _signInManager.UserManager.AddToRolesAsync(user, rolesToAdd);
+            }
+
+            if (rolesToDelete.Any())
+            {
+                await _signInManager.UserManager.RemoveFromRolesAsync(user, rolesToDelete);
+            }
+
+            //assign user updated data
+            user.FirstName = UserData.User.FirstName;
+            user.LastName = UserData.User.LastName; 
+            user.Email = UserData.User.Email;   
+            _UnitOfWork.User.UpdateUser(user);
+            return RedirectToAction("Edit",new { id = user.Id });   
 
         }
     }
