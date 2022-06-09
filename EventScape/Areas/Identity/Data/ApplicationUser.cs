@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EventScape.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace EventScape.Areas.Identity.Data;
@@ -12,6 +13,7 @@ public class ApplicationUser : IdentityUser
     public string? FirstName { get; set; }   
     public string ?LastName { get; set; }
     public byte[]? ProfilePic { get; set; }
+    public ICollection<UserQueries> UserQueries { get; set; }
 
 }
 

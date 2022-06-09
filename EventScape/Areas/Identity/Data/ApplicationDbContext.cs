@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using EventScape.Models;
 
 namespace EventScape.Data;
 
@@ -31,5 +32,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             builder.Property(u=>u.LastName).HasMaxLength(255);
         }
     }
+
+    public DbSet<EventScape.Models.Events>? Events { get; set; }
+    public DbSet<EventScape.Models.UserQueries>? UserQueries { get; set; }
 }
  
