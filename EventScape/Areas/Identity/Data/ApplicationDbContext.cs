@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using EventScape.Models;
+using EventScape.ViewModels;
 
 namespace EventScape.Data;
 
@@ -35,5 +36,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<EventScape.Models.Events>? Events { get; set; }
     public DbSet<EventScape.Models.UserQueries>? UserQueries { get; set; }
+    public DbSet<EventScape.ViewModels.AdminDashboardViewModel>? AdminDashboardViewModel { get; set; }
 }
  

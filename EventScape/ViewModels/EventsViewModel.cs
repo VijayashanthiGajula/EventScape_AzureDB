@@ -13,7 +13,7 @@ namespace EventScape.ViewModels
         public string? Description { get; set; } = null!;
        
         public decimal Price { get; set; }
-        public string EventPosterName { get; set; } = null!;
+       // public string EventPosterName { get; set; } = null!;
 
         [Required(ErrorMessage="Please upload Event Poster")]
         [Display(Name ="Event Posters")]

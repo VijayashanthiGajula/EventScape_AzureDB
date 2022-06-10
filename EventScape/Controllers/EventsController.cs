@@ -62,34 +62,40 @@ namespace EventScape.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,EventName,ShowStartDate,ShowEndDate,Location,MaxCapacity,Description,Price,EventPosters")] EventsViewModel events)
+        public async Task<IActionResult> Create(EventsViewModel events)
         {
-            //if (Request.Form.Files.Count > 0)
-            //{
-            //    //IFormFile file = Request.Form.Files.FirstOrDefault();
-            //    //using (var dataStream = new MemoryStream())
-            //    //{
-            //    //    await file.CopyToAsync(dataStream);
-            //    //    events.EventPosters = dataStream.ToArray();
-
-            //    //}
-               
-
-            //}
-                if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
+                string EventPosterName = null;
+            if (events.EventPosters != null)
+            {             
                 string wwwRootPath = _hostEnvironment.WebRootPath;
                 string filename = Path.GetFileNameWithoutExtension(events.EventPosters.FileName);
-                string extension=Path.GetExtension(events.EventPosters.FileName);
-                events.EventPosterName = filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
-               string path=Path.Combine(wwwRootPath+"/Image", filename);
+                string extension = Path.GetExtension(events.EventPosters.FileName);
+                  EventPosterName = filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath + "/Image", filename);
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await events.EventPosters.CopyToAsync(fileStream);
                 }
-                _context.Add(events);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                Events EventsModelObj = new Events
+                {
+
+                    EventName = events.EventName,
+                    ShowStartDate = events.ShowStartDate,
+                    ShowEndDate = events.ShowEndDate,
+                    Location = events.Location,
+                    MaxCapacity = events.MaxCapacity,
+                    Description = events.Description,
+                    Price = events.Price,
+                    EventPosterName = EventPosterName
+
+                };
+                    _context.Add(EventsModelObj);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }          
+                
             }
             return View(events);
         }

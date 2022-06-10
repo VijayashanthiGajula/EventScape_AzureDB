@@ -42,7 +42,8 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+            var ImagePath = "~/Image/" + (item.EventPosterName?? "noimage.png");
+            <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.EventName)
             </td>
@@ -53,7 +54,7 @@
                 @Html.DisplayFor(modelItem => item.ShowEndDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Location)
+                @Html.DisplayFor(modelItem => item.Location)S
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MaxCapacity)
@@ -65,7 +66,9 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EventPosterName)
+                 
+                <img src="@ImagePath" class="rounded float-left img-fluid img-thumbnail"  asp-append-version="true">
+                
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
