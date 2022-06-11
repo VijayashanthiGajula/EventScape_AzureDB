@@ -102,42 +102,76 @@ namespace EventScape.Controllers
 
         // GET: Events/Edit/5
         public async Task<IActionResult> Edit(int? id)
-        {
+    {
             if (id == null || _context.Events == null)
             {
                 return NotFound();
             }
 
-            var events = await _context.Events.FindAsync(id);
-            if (events == null)
+            var currentRecord = await _context.Events.FindAsync(id);          
+            EventsEditModel EventsModelObj = new EventsEditModel
+            {
+                Id = currentRecord.ID,
+                EventName = currentRecord.EventName,
+                ShowStartDate = currentRecord.ShowStartDate,
+                ShowEndDate = currentRecord.ShowEndDate,
+                Location = currentRecord.Location,
+                MaxCapacity = currentRecord.MaxCapacity,
+                Description = currentRecord.Description,
+                Price = currentRecord.Price,
+                ExistingImagePath = currentRecord.EventPosterName,                        
+             };
+            if (currentRecord == null)
             {
                 return NotFound();
             }
-            return View(events);
+            return View(EventsModelObj);
         }
+
+       
+        
 
         // POST: Events/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,EventName,ShowStartDate,ShowEndDate,Location,MaxCapacity,Description,Price,EventPosters")] Events events)
+
+        public async Task<IActionResult> Edit( EventsEditModel events)
         {
-            if (id != events.ID)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(events);
+                    Events e = await _context.Events.FindAsync(events.Id);
+                    e.EventPosterName = events.ExistingImagePath;
+                    e.EventName = events.EventName;
+                    e.ShowStartDate = events.ShowStartDate;
+                    e.ShowEndDate = events.ShowEndDate;
+                    e.Location = events.Location;
+                    e.MaxCapacity = events.MaxCapacity;
+                    e.Description = events.Description;
+                    e.Price = events.Price;
+
+                    if (events.EventPosters != null)
+                    {                      
+                        if (events.ExistingImagePath != null)
+                        {
+                            string filePath = Path.Combine(_hostEnvironment.WebRootPath, "Image", events.ExistingImagePath);
+
+                            System.IO.File.Delete(filePath);
+                        }
+                        e.EventPosterName = ProcessUploadedFile(events);
+                    }
+                  
+
+                    _context.Update(e);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EventsExists(events.ID))
+                    if (!EventsExists(events.Id))
                     {
                         return NotFound();
                     }
@@ -150,6 +184,28 @@ namespace EventScape.Controllers
             }
             return View(events);
         }
+        // Method to save edited photo in wwwroot
+        private string ProcessUploadedFile(EventsEditModel model)
+        {
+            string EventPosterName = null;
+
+        if (model.EventPosters != null)
+        {
+            string wwwRootPath = _hostEnvironment.WebRootPath;
+            string filename = Path.GetFileNameWithoutExtension(model.EventPosters.FileName);
+            string extension = Path.GetExtension(model.EventPosters.FileName);
+                EventPosterName= filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
+            string path = Path.Combine(wwwRootPath + "/Image", filename);
+            using (var fileStream = new FileStream(path, FileMode.Create))
+            {
+                 model.EventPosters.CopyToAsync(fileStream);
+            }
+
+        }
+        return EventPosterName;
+    }
+        // Method to save edited photo in wwwroot
+
 
         // GET: Events/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -178,10 +234,15 @@ namespace EventScape.Controllers
             {
                 return Problem("Entity set 'ApplicationDbContext.Events'  is null.");
             }
-            var events = await _context.Events.FindAsync(id);
-            if (events != null)
+            var eventsmodel = await _context.Events.FindAsync(id);
+            //delete image from root folder
+            var imagepath = Path.Combine(_hostEnvironment.WebRootPath, "Image", eventsmodel.EventPosterName);
+            if(System.IO.File.Exists(imagepath))
+                System.IO.File.Delete(imagepath);
+            //delete record
+            if (eventsmodel != null)
             {
-                _context.Events.Remove(events);
+                _context.Events.Remove(eventsmodel);
             }
             
             await _context.SaveChangesAsync();
