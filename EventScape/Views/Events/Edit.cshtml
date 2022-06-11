@@ -53,13 +53,12 @@
             </div>
            
            <div class="form-group ">
-                <label asp-for="ExistingImagePath" class="col-sm-2 col-form-label"></label>
+                <label asp-for="ExistingImagePath" class="col-sm-2 col-form-label">Event Poster</label>
                    <div class="col-sm-10">
                         <div class="custom-file">
-                        <input asp-for="ExistingImagePath"   class="form-control custom-file-input" value="@ImagePath">
-                         
+                        <input asp-for="ExistingImagePath" hidden   class="form-control custom-file-input" value="@ImagePath">                         
                         </div>
-                        <span asp-validation-for="ExistingImagePath" class="text-danger"></span>
+                        @*<span asp-validation-for="ExistingImagePath" class="text-danger"></span>*@
                  </div>
             </div> 
               <div class="form-group">
@@ -67,13 +66,12 @@
                      multiple
                      asp-for=" EventPosters"
                      type="file"
-                       accept=".png,.jpg,.jpeg,.gif,.tif"
-                       
+                       accept=".png,.jpg,.jpeg,.gif,.tif"                       
                        value="@ImagePath"
                        class=" custom-file-input "
                        style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
                        onchange="document.getElementById('EventPosters').src = window.URL.createObjectURL(this.files[0])" />
-                       <label  class="col-sm-2 col-form-label">Click here to change photo </label>
+                      
                 <span asp-validation-for="EventPosters" class="text-danger"></span>
             </div>
               <div class="form-group">                

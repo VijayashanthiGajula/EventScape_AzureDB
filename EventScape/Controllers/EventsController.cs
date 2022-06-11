@@ -24,15 +24,31 @@ namespace EventScape.Controllers
             _hostEnvironment = hostEnvironment; 
         }
 
+
+        //public async Task<IActionResult> Index()
+        //{
+        //      return _context.Events != null ? 
+        //                  View(await _context.Events.ToListAsync()) :
+        //                  Problem("Entity set 'ApplicationDbContext.Events'  is null.");
+        //}
+
         // GET: Events
         [Authorize(Roles = $"{Constants.Roles.Administrator}")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-              return _context.Events != null ? 
-                          View(await _context.Events.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Events'  is null.");
-        }
 
+            ViewData["CurrentFilter"] = searchString;
+            var Events = from s in _context.Events
+                         select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Events = Events.Where(s => s.Location.Contains(searchString));
+            }
+            return _context.Events != null ?
+
+                         View(await Events.AsNoTracking().ToListAsync()) :
+                         Problem("Entity set 'ApplicationDbContext.Events'  is null.");
+        }
         // GET: Events/Details/5
         public async Task<IActionResult> Details(int? id)
         {
