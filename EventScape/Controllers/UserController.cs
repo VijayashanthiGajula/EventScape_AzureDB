@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EventScape.Controllers
 {
+    [Authorize(Roles = $"{Constants.Roles.Administrator}")]
     public class UserController : Controller
     {
         public readonly IUnitOfWork _UnitOfWork;
@@ -18,7 +19,7 @@ namespace EventScape.Controllers
             _UnitOfWork = UnitOfWork;//Repo from where user and roles data is brought from, by calling respective repos.
             _signInManager = signInManager; //injecting signmanager dependency to get list of userRoles of user
         }
-       // [Authorize(Roles = $"{Constants.Roles.Administrator}")]
+        [Authorize(Roles = $"{Constants.Roles.Administrator}")]
         public IActionResult Index()
         {
             var users = _UnitOfWork.User.GetUsers();

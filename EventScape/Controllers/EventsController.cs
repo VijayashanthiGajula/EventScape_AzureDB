@@ -52,7 +52,7 @@ namespace EventScape.Controllers
 
         //Get: Upcoming Events
         // GET: Events
-        [Authorize(Roles = $"{Constants.Roles.Administrator}")]
+      
         public async Task<IActionResult> UpcomingEvents(string searchString)
         {
 
@@ -74,6 +74,7 @@ namespace EventScape.Controllers
                          Problem("Entity set 'ApplicationDbContext.Events'  is null.");
         }
         // GET: Events/Details/5
+        [Authorize(Roles = $"{Constants.Roles.Administrator}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Events == null)
@@ -110,6 +111,7 @@ namespace EventScape.Controllers
         }
 
         // GET: Events/Create
+        [Authorize(Roles = $"{Constants.Roles.Administrator}")]
         public IActionResult Create()
         {
             return View();
@@ -120,6 +122,7 @@ namespace EventScape.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = $"{Constants.Roles.Administrator}")]
         public async Task<IActionResult> Create(EventsViewModel events)
         {
             if (ModelState.IsValid)
@@ -159,6 +162,7 @@ namespace EventScape.Controllers
         }
 
         // GET: Events/Edit/5
+        [Authorize(Roles = $"{Constants.Roles.Administrator}")]
         public async Task<IActionResult> Edit(int? id)
     {
             if (id == null || _context.Events == null)
@@ -194,7 +198,7 @@ namespace EventScape.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-
+        [Authorize(Roles = $"{Constants.Roles.Administrator}")]
         public async Task<IActionResult> Edit( EventsEditModel events)
         {
 
@@ -243,6 +247,7 @@ namespace EventScape.Controllers
             return View(events);
         }
         // Method to save edited photo in wwwroot
+        [Authorize(Roles = $"{Constants.Roles.Administrator}")]
         private string ProcessUploadedFile(EventsEditModel model)
         {
             string EventPosterName = null;
@@ -266,6 +271,7 @@ namespace EventScape.Controllers
 
 
         // GET: Events/Delete/5
+        [Authorize(Roles = $"{Constants.Roles.Administrator}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Events == null)
@@ -286,6 +292,7 @@ namespace EventScape.Controllers
         // POST: Events/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = $"{Constants.Roles.Administrator}")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Events == null)

@@ -48,57 +48,63 @@
         <div class="card-body">
    
          
-                        @if (SignInManager.IsSignedIn(User))
+                        @if ( SignInManager.IsSignedIn(User))
+
                     {
-                        <h2 class="text-white">Admin</h2>
-                        <ul class=" navbar-nav navbar-expand-lg navbar-toggleable-sm" id="AdminNavBar" >
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <h2 class="text-white">Admin</h2>
+                            <ul class=" navbar-nav navbar-expand-lg navbar-toggleable-sm" id="AdminNavBar" >
 
-                            <li class="nav-item ">
-                                <a class="nav-link text-white "  asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link text-white "  asp-area="" asp-controller="AdminDashboard" asp-action="Index">DashBoard</a>
-                            </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link text-white "  asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link text-white "  asp-area="" asp-controller="AdminDashboard" asp-action="Index">DashBoard</a>
+                                </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Events" asp-action="Index">Events</a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link text-white "  asp-area="" asp-controller="User" asp-action="Index">Users</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="Index">Bookings</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="UserQueries" asp-action="Index">UserQueries</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Events" asp-action="Index">Events</a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link text-white "  asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="Index">Bookings</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="UserQueries" asp-action="Index">UserQueries</a>
+                                </li>
 
-                        </ul>
-                         <br/>
-                         <h2 class="text-white"  >Users</h2>
-                    <ul class=" navbar-nav navbar-expand-lg navbar-toggleable-sm" id="NonUserNavBar">
-                            <li class="nav-item ">
-                                <a class="nav-link text-white "  asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
+                            </ul>
+                        }
+                        else if (User.IsInRole("UserRole"))
+                        {
+                            <h2 class="text-white"  >Users</h2>
+                            <ul class=" navbar-nav navbar-expand-lg navbar-toggleable-sm" id="NonUserNavBar">
+                                <li class="nav-item ">
+                                    <a class="nav-link text-white "  asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Events" asp-action="UpcomingEvents">UserEvent</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Events" asp-action="UpcomingEvents">UserEvent</a>
+                                </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="Create">Booking an Event</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="UserQueries" asp-action="Create">Contact Us</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="Create">Booking an Event</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="UserQueries" asp-action="Create">Contact Us</a>
+                                </li>
 
-                        </ul>
+                            </ul>
+                        }
                     }
 
                     
                     else
                     {
-                    <br/>
+                    
                     <ul class=" navbar-nav navbar-expand-lg navbar-toggleable-sm" id="NonUserNavBar">
                             <li class="nav-item ">
                                 <a class="nav-link text-white "  asp-area="" asp-controller="Home" asp-action="Index">Home</a>
