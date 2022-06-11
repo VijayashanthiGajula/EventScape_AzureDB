@@ -1,0 +1,56 @@
+﻿@model IEnumerable<EventScape.Models.Events>
+@{
+    ViewData["Title"] = "UpcomingEvents";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<main>
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Upcoming Events</h1>
+        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. 
+            Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <p>
+            <form asp-action="UpcomingEvents" method="get">
+    <div class="form-actions no-color">
+        <p>
+            <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value=" Search by Location:" class="btn btn-primar my-2" /> |
+            <a asp-action="UpcomingEvents" class="btn btn-light">Back to Full List</a>
+        </p>
+    </div>
+</form>
+           
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+         @foreach (var item in Model)
+         {
+            var ImagePath = "~/Image/" + (item.EventPosterName?? "noimage.png");      
+            <div class="col 3">
+               <div class="card shadow-sm">
+                   <div class="card" style="">
+                      <img src="@ImagePath" class="card-img-top" width="90%" height="300"  alt=""  asp-append-version="true">
+                      <div class="card-body"  >
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.EventName)</h5>
+                        <p class="card-text text-wrap"> @item.Description </p>
+                         <small class="text-muted p-1">@item.MaxCapacity</small>
+                         <small class="text-muted p-1">$@item.Price</small>
+                          <small class="text-muted p-1">@item.Location</small>
+                      </div>
+                      <div class="card-footer"> <a  asp-action="UserEventDetails" asp-route-id="@item.ID" class="btn btn-primary">View </a></div>                      
+                    </div>                  
+               </div>             
+             </div>
+         } 
+      </div>
+      
+    </div>
+  </div>
+
+</main>

@@ -25,7 +25,7 @@ namespace EventScape.Controllers
         }
 
 
-        //public async Task<IActionResult> Index()
+        //public async Task<IActionResult> UpcomingEvents()
         //{
         //      return _context.Events != null ? 
         //                  View(await _context.Events.ToListAsync()) :
@@ -49,8 +49,50 @@ namespace EventScape.Controllers
                          View(await Events.AsNoTracking().ToListAsync()) :
                          Problem("Entity set 'ApplicationDbContext.Events'  is null.");
         }
+
+        //Get: Upcoming Events
+        // GET: Events
+        [Authorize(Roles = $"{Constants.Roles.Administrator}")]
+        public async Task<IActionResult> UpcomingEvents(string searchString)
+        {
+
+            ViewData["CurrentFilter"] = searchString;
+            var Events = from s in _context.Events
+                         select s;
+
+            if (Events!=null)
+            {
+                Events = Events.Where(s => s.ShowStartDate>=DateTime.Now);
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    Events = Events.Where(s => s.Location.Contains(searchString));
+                }
+            }
+            return _context.Events != null ?
+
+                         View(await Events.AsNoTracking().ToListAsync()) :
+                         Problem("Entity set 'ApplicationDbContext.Events'  is null.");
+        }
         // GET: Events/Details/5
         public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null || _context.Events == null)
+            {
+                return NotFound();
+            }
+
+            var events = await _context.Events
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (events == null)
+            {
+                return NotFound();
+            }
+
+            return View(events);
+        }
+
+        // GET: Events/Details/5
+        public async Task<IActionResult> UserEventDetails(int? id)
         {
             if (id == null || _context.Events == null)
             {

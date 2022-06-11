@@ -56,30 +56,7 @@ namespace EventScape.Controllers
                 return NotFound();
             }
             var userRolesInDb = await _signInManager.UserManager.GetRolesAsync(user);
-            //assigning userrole data
-            //foreach (var role in UserData.Roles)
-            //{
-            //    var assignedInDb = userRolesInDb.FirstOrDefault(Ur => Ur == role.Text);
-            //    if (role.Selected)
-            //    {
-            //        if (assignedInDb == null)
-            //        {
-            //            await _signInManager.UserManager.AddToRoleAsync(user, role.Text);
-            //           //AddRole
-
-            //        }
-            //    }
-            //    else
-            //    {
-            //        if (assignedInDb != null)
-            //        {
-            //            //RemoveRole
-            //            await _signInManager.UserManager.RemoveFromRoleAsync(user, role.Text);
-            //        }
-            //    }
-
-            //}
-
+            //assigning userrole data            
             var rolesToAdd = new List<string>();
             var rolesToDelete = new List<string>();
 
@@ -117,8 +94,65 @@ namespace EventScape.Controllers
             user.LastName = UserData.User.LastName; 
             user.Email = UserData.User.Email;   
             _UnitOfWork.User.UpdateUser(user);
-            return RedirectToAction("Edit",new { id = user.Id });   
+            // return RedirectToAction("Edit",new { id = user.Id });
+              return RedirectToAction(nameof(Index));
 
         }
+
+        // GET: Users/Delete
+        public async Task<IActionResult> Delete(string? id)
+        {
+            if (id == null || _UnitOfWork.User.GetUserById(id) == null)
+            {
+                return NotFound();
+            }
+
+            var user = _UnitOfWork.User.GetUserById(id);
+                
+            if (user == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var roles = _UnitOfWork.Role.GetRoles();             
+
+                var userRoles = await _signInManager.UserManager.GetRolesAsync(user);
+                var roleSelectListItem = roles.Select(role => new SelectListItem(
+                                                                role.Name,
+                                                                role.Id,
+                                                               userRoles.Any(userrole => userrole.Contains(role.Name))
+                                                                )).ToList();
+                var UserData = new EditUserViewModel()
+                {
+                    User = user,                    
+                    // Roles = roles
+                    Roles = roleSelectListItem
+                };
+
+                return View(UserData);
+            }          
+            
+        }
+        // POST: Users/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            var user = _UnitOfWork.User.GetUserById(id);            
+            if (user == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.UserQueries'  is null.");
+            }            
+            if (user != null)
+            {
+                _UnitOfWork.User.Remove(user);               
+               
+            }           
+            return RedirectToAction(nameof(Index));
+        }
+
+         
+
     }
 }

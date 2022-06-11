@@ -30,5 +30,11 @@ namespace EventScape.Repositories
             _context.SaveChanges(); 
             return user;
         }
+        public ApplicationUser Remove(ApplicationUser user)
+        {
+            _context.Remove(user);
+            _context.SaveChanges();
+            return user;
+        }
     }
 }
