@@ -18,19 +18,32 @@ namespace EventScape.Controllers
         public IActionResult Index()
         {
             // ViewData["UpcomingEvents"] =eventslist;
-           // var eventsCount = _context.Events.Count();;
-            //var RegisteredUsers = _context.Users.Where(u=>u.)
+           
+            // var RegisteredUsers = _context.Users.Where(u=>u.)
             //var Sales = _context.Events.Count();
             //var Earnings = _context.Events.Count();
-            //var eventslist = _context.Events.Where(e => e.ShowStartDate > DateTime.Now ).Take(5);
+            var Events = from s in _context.Events
+                         select s;
+            var eventsCount = Events.Count();
+            var eventslist = Events.Where(e => e.ShowStartDate >= DateTime.Now).Take(5);
 
-
-            var model = new ViewModels.AdminDashboardViewModel()
+            if (eventslist != null)
             {
-                //TotalEventsCount = eventsCount,
-               // UpcomingEvents = eventslist as IEnumerable<Events>,
-            };
-            return View(model);
+                var model = new ViewModels.AdminDashboardViewModel()
+                {
+                    TotalEventsCount = eventsCount,
+                    UpcomingEvents = eventslist as IEnumerable<Events>,
+                };
+                return View(model);
+            }
+            else
+            {
+                return Problem("Entity set 'ApplicationDbContext.Events'  is null.");
+            }
+           
+
+                    
+                    
         }
     }
 }

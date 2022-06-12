@@ -151,9 +151,6 @@ namespace EventScape.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<int?>("AdminDashboardViewModelId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -178,8 +175,6 @@ namespace EventScape.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("AdminDashboardViewModelId");
 
                     b.HasIndex("ApplicationUserId");
 
@@ -350,10 +345,6 @@ namespace EventScape.Migrations
 
             modelBuilder.Entity("EventScape.Models.UserQueries", b =>
                 {
-                    b.HasOne("EventScape.ViewModels.AdminDashboardViewModel", null)
-                        .WithMany("UserQueries")
-                        .HasForeignKey("AdminDashboardViewModelId");
-
                     b.HasOne("EventScape.Areas.Identity.Data.ApplicationUser", "ApplicationUser")
                         .WithMany("UserQueries")
                         .HasForeignKey("ApplicationUserId");
@@ -433,8 +424,6 @@ namespace EventScape.Migrations
             modelBuilder.Entity("EventScape.ViewModels.AdminDashboardViewModel", b =>
                 {
                     b.Navigation("UpcomingEvents");
-
-                    b.Navigation("UserQueries");
                 });
 #pragma warning restore 612, 618
         }
