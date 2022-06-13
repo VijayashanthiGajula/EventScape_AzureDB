@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using EventScape.Core.Repository;
 
 namespace EventScape.Areas.Identity.Pages.Account
 {
@@ -30,12 +31,14 @@ namespace EventScape.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IUnitOfWork _unitOfWork;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
+            IUnitOfWork unitOfWork,
             IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -44,6 +47,7 @@ namespace EventScape.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _unitOfWork= unitOfWork;
         }
 
         /// <summary>
@@ -135,7 +139,21 @@ namespace EventScape.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //assigning userrole to the registered user *******************************************
+
+                    var AsignedRoles = await _userManager.GetRolesAsync(user);
+                    if (AsignedRoles.Count == 0)
+                    {
+
+                        var Allroles = _unitOfWork.Role.GetRoles();
+                        var defaultRole = Allroles.FirstOrDefault(u => u.Name == "UserRole");
+
+                        await _signInManager.UserManager.AddToRoleAsync(user, defaultRole.Name);
+                        _unitOfWork.User.UpdateUser(user);
+
+                    }
+                    //assigning userrole to the registered user  ******************************************
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);                  
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
