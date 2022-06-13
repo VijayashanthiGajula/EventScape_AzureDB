@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
+using EventScape.Core.Repository;
 
 namespace EventScape.Areas.Identity.Pages.Account
 {
@@ -23,6 +24,8 @@ namespace EventScape.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        public readonly IUnitOfWork _UnitOfWork;
+        private IEnumerable<string> rolesToAdd;
 
         public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
         {
@@ -134,7 +137,7 @@ namespace EventScape.Areas.Identity.Pages.Account
                         var roleClaim = string.Join(",", roles);
                         claims.Add(new Claim("Roles", roleClaim));
                     }
-
+                   
                     await _signInManager.SignInWithClaimsAsync(user, Input.RememberMe, claims);
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
