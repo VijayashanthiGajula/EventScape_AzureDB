@@ -17,155 +17,361 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - EventScape</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css"/>
-    <link rel="stylesheet" href="~/css/Pulse.css" />
+    <link rel="stylesheet" href="~/css/Flatly.css" />
+<style>
+.content {
+min-height: 100%
+}
+
+
+
+
+
+.footer {
+height: 50px;
+margin-top: -50px;
+position: sticky;
+width: auto;
+}
+
+
+
+.bg-grey {
+background: #292929;
+}
+.logo-footer {
+margin-bottom: 40px;
+}
+footer {
+color: grey;
+}
+footer p, a {
+font-size: 14px;
+
+
+
+}
+footer h5 {
+
+
+
+margin-bottom: 40px;
+position: relative;
+}
+footer h5:after {
+position: absolute;
+content: "";
+background: grey;
+width: 12%;
+height: 1px;
+left: 0;
+bottom: -20px;
+}
+.btn-footer {
+color: grey;
+
+
+
+text-decoration: none;
+border: 1px solid;
+border-radius: 43px;
+font-size: 20px;
+padding: 7px 30px;
+line-height: 47px;
+}
+.btn-footer:hover {
+
+
+
+text-decoration: none;
+
+
+
+}
+.form-footer input[type="text"] {
+border: none;
+border-radius: 16px 0 0 16px;
+outline: none;
+padding-left: 10px;
+
+
+
+}
+::placeholder {
+font-size: 10px;
+padding-left: 10px;
+font-style: italic;
+}
+.form-footer input[type="button"] {
+border: none;
+background:#232323;
+margin-left: -5px;
+color: #fff;
+outline: none;
+border-radius: 0 16px 16px 0;
+padding: 2px 12px;
+}
+
+
+
+footer ul li {
+list-style: none;
+display: block;
+}
+footer ul {
+padding-left: 0;
+}
+footer ul li a{
+text-decoration: none;
+color: grey;
+text-decoration:none;
+}
+a:hover {
+text-decoration: none;
+color: #f5f5f5 !important;
+
+
+
+}
+
+
+
+
+/* Style page content */
+.main {
+margin-left: 160px; /* Same as the width of the sidebar */
+padding: 0px 10px;
+}
+
+
+
+</style>
+
 </head>
-   <body >
- <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-info border-bottom box-shadow mb-1 ">
-            <div class="container-fluid">
-                 <button class="navbar-toggler btn btn-link btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar" aria-controls="sidebar"
-                        aria-expanded="false" aria-label="Toggle navigation" id="sidebarCollapse">
-                    <i class="bi bi-toggles text-white"></i>
-                </button>
-               <a class="navbar-brand text-white " asp-area="" asp-controller="Home" asp-action="Index">EventScape</a>
-                <button class="navbar-toggler btn btn-link btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                   <i class="bi bi-gear text-white"></i>
-                </button>
-                
-                 <partial name="_LoginPartial.cshtml" />
-          </div>
-        </nav>
-    </header> 
- 
-    
-           
- <div class="container-fluid"   >
-<div class="row"  style="height:100vh;">   
-    <!-- sidebar   -->   
-    <nav class="col-sm-4 col-md-3 col-lg-2 card bg-primary navbar-dark navbar-toggleable-sm  " id="sidebar">
-     
-        <div class="card-body">
-   
-         
-                        @if ( SignInManager.IsSignedIn(User))
 
-                    {
-                        @if (User.IsInRole("Administrator"))
-                        {
-                            <h2 class="text-white">Admin</h2>
-                            <ul class=" navbar-nav navbar-expand-lg navbar-toggleable-sm" id="AdminNavBar" >
 
-                                <li class="nav-item ">
-                                    <a class="nav-link text-white "  asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link text-white "  asp-area="" asp-controller="AdminDashboard" asp-action="Index">DashBoard</a>
-                                </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Events" asp-action="Index">Events</a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link text-white "  asp-area="" asp-controller="User" asp-action="Index">Users</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="Index">Bookings</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="UserQueries" asp-action="Index">UserQueries</a>
-                                </li>
+<body >
 
-                            </ul>
-                        }
-                        else if (User.IsInRole("UserRole"))
-                        {
-                            <h2 class="text-white"  >Users</h2>
-                            <ul class=" navbar-nav navbar-expand-lg navbar-toggleable-sm" id="NonUserNavBar">
-                                <li class="nav-item ">
-                                    <a class="nav-link text-white "  asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                                </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Events" asp-action="UpcomingEvents">UserEvent</a>
-                                </li>
+<header>
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-1 ">
+<div class="container-fluid">
+<button class="navbar-toggler btn btn-link btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar" aria-controls="sidebar"
+aria-expanded="false" aria-label="Toggle navigation" id="sidebarCollapse">
+<i class="bi bi-toggles text-white"></i>
+</button>
+<a class="navbar-brand text-white " asp-area="" asp-controller="Home" asp-action="Index"></a>
+<button class="navbar-toggler btn btn-link btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+aria-expanded="false" aria-label="Toggle navigation">
+<i class="bi bi-gear text-white"></i>
+</button>
 
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="Create">Booking an Event</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="UserQueries" asp-action="Create">Contact Us</a>
-                                </li>
+<partial name="_LoginPartial" />
+</div>
+</nav>
+</header>
 
-                            </ul>
-                        }
-                    }
 
-                    
-                    else
-                    {
-                    
-                    <ul class=" navbar-nav navbar-expand-lg navbar-toggleable-sm" id="NonUserNavBar">
-                            <li class="nav-item ">
-                                <a class="nav-link text-white "  asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                             <li class="nav-item ">
-                                <a class="nav-link text-white "  asp-area="" asp-controller="User" asp-action="Index">Users</a>
-                            </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Events" asp-action="UpcomingEvents">UserEvent</a>
-                            </li>
+<div class="container-fluid" >
+<div class="row">
 
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="Create">Booking an Event</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="UserQueries" asp-action="Create">Contact Us</a>
-                            </li>
 
-                        </ul>
-                    }
-                </div>
-                  
-   </nav>
-   <!-- sidebar   -->
-   
-    <!-- Page content -->
-    <div class="col-sm-8 col-md-8 col-lg-9 bg-light flex-fill p-4" id=""> 
-        <div class=" bg-white h-auto min-vh-100 p-3">
-     
-         <main role="main" class="pb-3">
-              @RenderBody()
-        </main>
-       </div> 
-       </div>
-    </div>
- 
- 
- <!-- Page content -->
+<!-- sidebar -->
+<nav class="sidebar col-sm-4 col-md-3 col-lg-2 card bg-primary navbar-dark navbar-toggleable-lg sticky-lg-top " id="sidebar">
+<img src="./images/banner.png" style="height:100px; width: 200px; align-items:center; margin-top:20px; position:sticky;" class="img-thumbnail border-0" alt="logo" >
+<div class="card-body" style="align-items:center">
 
-  
-  
 
- <div class="row">
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - EventScape - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+@if (SignInManager.IsSignedIn(User))
+{
+<h2 class="text-white">Admin</h2>
+<ul class=" navbar-nav navbar-expand-lg navbar-toggleable-sm" id="AdminNavBar" >
+<li class="nav-item " style=" font-size: 15px; text-transform:uppercase; padding-bottom: 50px;">
+<a class="nav-link text-white " asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+</li>
+<li class="nav-item " style=" font-size: 15px; text-transform:uppercase; padding-bottom: 50px;">
+<a class="nav-link text-white " asp-area="" asp-controller="Home" asp-action="DashBoard">DashBoard</a>
+</li>
 
-   </div>
-    </div>
-      <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @await RenderSectionAsync("Scripts", required: false)
+<li class="nav-item" style=" font-size: 15px; text-transform:uppercase; padding-bottom: 50px;">
+<a class="nav-link text-white" asp-area="" asp-controller="Events" asp-action="Index">Events</a>
+</li>
+<li class="nav-item" style=" font-size: 15px; text-transform:uppercase; padding-bottom: 50px;">
+<a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="Index">Bookings</a>
+</li>
+<li class="nav-item" style=" font-size: 15px; text-transform:uppercase; padding-bottom: 50px;">
+<a class="nav-link text-white" asp-area="" asp-controller="UserQueries" asp-action="Index">User Queries</a>
+</li>
+
+
+
+</ul>
+<br/>
+<h2 class="text-white" >Users</h2>
+<ul class=" navbar-nav navbar-expand-lg navbar-toggleable-sm" id="NonUserNavBar">
+<li class="nav-item " style=" font-size: 15px; text-transform:uppercase; padding-bottom: 50px;">
+<a class="nav-link text-white " asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+</li>
+
+
+
+<li class="nav-item" style=" font-size: 15px; text-transform:uppercase; padding-bottom: 50px;">
+<a class="nav-link text-white" asp-area="" asp-controller="Events" asp-action="Index">User Event</a>
+</li>
+
+
+
+<li class="nav-item" style=" font-size: 15px; text-transform:uppercase; padding-bottom: 50px;">
+<a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="Create">Booking an Event</a>
+</li>
+<li class="nav-item" style=" font-size: 15px; text-transform:uppercase; padding-bottom: 50px;">
+<a class="nav-link text-white" asp-area="" asp-controller="UserQueries" asp-action="Create">Contact Us</a>
+</li>
+
+
+
+</ul>
+}
+
+
+
+
+else
+{
+<br/>
+<ul class=" navbar-nav navbar-expand-lg navbar-toggleable-lg sticky-lg-top" id="NonUserNavBar" style="position:sticky; ">
+<li class="nav-item " style=" font-size: 15px; text-transform:uppercase; padding-bottom: 50px;">
+<a class="nav-link text-white " asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+</li>
+
+
+
+<li class="nav-item" style=" font-size: 15px; text-transform:uppercase; padding-bottom: 50px;">
+<a class="nav-link text-white" asp-area="" asp-controller="Events" asp-action="Index">User Event</a>
+</li>
+
+
+
+<li class="nav-item" style=" font-size: 15px; text-transform:uppercase; padding-bottom: 50px;">
+<a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="Create">Booking an Event</a>
+</li>
+<li class="nav-item" style=" font-size: 15px; text-transform:uppercase; padding-bottom: 50px;">
+<a class="nav-link text-white" asp-area="" asp-controller="UserQueries" asp-action="Create">Contact Us</a>
+</li>
+
+
+
+</ul>
+}
+</div>
+
+</nav>
+
+
+
+<!-- sidebar -->
+
+<!-- Page content -->
+<div class="col-sm-8 col-md-8 col-lg-9 bg-light flex-fill p-4" id="">
+<div class=" bg-white h-auto min-vh-100 p-3">
+
+<main role="main" class="pb-3">
+@RenderBody()
+</main>
+</div>
+</div>
+</div>
+
+
+<!-- Page content -->
+
+
+<div class="row">
+<footer class="container-fluid bg-primary text-white py-5">
+<div class="container">
+<div class="row">
+<div class="col-md-6">
+<div class="row">
+<div class="col-md-6 ">
+<div class="logo-part">
+<img src="./images/banner.png" class=" border-white w-50 logo-footer" >
+<p>7637 Market Rd, Auckland, PA 12345</p>
+<p>Escape into Adventure!</p>
+</div>
+</div>
+<div class="col-md-6 px-4">
+<h5 class="text-success">About Company</h5>
+<a class="nav-link text-white" asp-area="" asp-controller="UserQueries" asp-action="Create">Contact Us</a>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="row">
+<div class="col-md-6 px-4">
+<h5 class="text-success"> Helpful Links</h5>
+<div class="row ">
+<div class="col-md-12">
+<a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+
+
+
+<a class="nav-link text-white " asp-area="" asp-controller="UserQueries" asp-action="Create">Contact Us</a>
+</div>
+
+
+
+</div>
+</div>
+<div class="col-md-6 ">
+<h5 class="text-success"> Newsletter</h5>
+<div class="social">
+<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+</div>
+<form class="form-footer my-3">
+<input type="text" placeholder="search here...." name="search">
+<input type="button" value="Go" >
+</form>
+
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+
+
+
+
+
+
+<!---- <footer class="border-top footer text-muted">
+<div class="container">
+&copy; 2022 - EventScape - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+</div>
+</footer>--->
+
+
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
 </body>
- 
 </html>
