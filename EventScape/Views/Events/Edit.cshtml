@@ -16,28 +16,31 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
            <input hidden asp-for="Id"/>
            <input hidden asp-for="ExistingImagePath"/>
-            <div class="form-group">
+           <div class="row">
+               <div class="col-6">
+
+                     <div class="form-group">
                 <label asp-for="EventName" class="control-label"></label>
-                <input asp-for="EventName" class="form-control" />
+                <input asp-for="EventName"  class="form-control" />
                 <span asp-validation-for="EventName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ShowStartDate" class="control-label"></label>
+                <label asp-for="ShowStartDate" class="control-label">Show Date</label>
                 <input asp-for="ShowStartDate" class="form-control" />
                 <span asp-validation-for="ShowStartDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
+          @*  <div class="form-group">
                 <label asp-for="ShowEndDate" class="control-label"></label>
                 <input asp-for="ShowEndDate" class="form-control" />
                 <span asp-validation-for="ShowEndDate" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="Location" class="control-label"></label>
                 <input asp-for="Location" class="form-control" />
                 <span asp-validation-for="Location" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MaxCapacity" class="control-label"></label>
+                <label asp-for="MaxCapacity" class="control-label">Seats Available</label>
                 <input asp-for="MaxCapacity" class="form-control" />
                 <span asp-validation-for="MaxCapacity" class="text-danger"></span>
             </div>
@@ -53,7 +56,7 @@
             </div>
            
            <div class="form-group ">
-                <label asp-for="ExistingImagePath" class="col-sm-2 col-form-label">Event Poster</label>
+                <label asp-for="ExistingImagePath" class="col-sm-3 col-form-label">Event Poster</label>
                    <div class="col-sm-10">
                         <div class="custom-file">
                         <input asp-for="ExistingImagePath" hidden   class="form-control custom-file-input" value="@ImagePath">                         
@@ -61,7 +64,14 @@
                         @*<span asp-validation-for="ExistingImagePath" class="text-danger"></span>*@
                  </div>
             </div> 
-              <div class="form-group">
+            
+               </div>
+                <div class="col-6">
+
+                     <div class="form-group">                
+                <img src="@ImagePath" asp-for="EventPosters"  class="img-fluid img-thumbnail" asp-append-version="true"/>
+                <span asp-validation-for="EventPosters" class="text-danger"></span>
+                  <div class="form-group">
                  <input 
                      multiple
                      asp-for=" EventPosters"
@@ -74,19 +84,21 @@
                       
                 <span asp-validation-for="EventPosters" class="text-danger"></span>
             </div>
-              <div class="form-group">                
-                <img src="@ImagePath" asp-for="EventPosters" class="" asp-append-version="true"/>
-                <span asp-validation-for="EventPosters" class="text-danger"></span>
             </div>
+
+                </div>
+           </div>
+          
+             
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />|  <a asp-action="Index">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+  
 </div>
 
 @section Scripts {

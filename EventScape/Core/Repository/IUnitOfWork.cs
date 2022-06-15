@@ -4,5 +4,10 @@
     {
         IUserRepository User { get; }
         IRoleRepository Role { get; }
+        IWishListRepository WishList { get; }
+        IBookingDetailsRepository BookingDetails { get; }
+        IBookingRepository Booking { get; }
+        void Save();
+       
     }
 }

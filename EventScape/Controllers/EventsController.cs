@@ -10,6 +10,10 @@ using EventScape.Models;
 using EventScape.Core;
 using Microsoft.AspNetCore.Authorization;
 using EventScape.ViewModels;
+using System.Security.Claims;
+using EventScape.Core.Repository;
+using Microsoft.AspNetCore.Identity;
+using EventScape.Areas.Identity.Data;
 
 namespace EventScape.Controllers
 {
@@ -17,22 +21,17 @@ namespace EventScape.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
+        public readonly IUnitOfWork _UnitOfWork;
+        private readonly UserManager<ApplicationUser> _UserManager;
 
-        public EventsController(ApplicationDbContext context,IWebHostEnvironment hostEnvironment)
+        public EventsController(ApplicationDbContext context,IWebHostEnvironment hostEnvironment,IUnitOfWork unitOfWork)
         {
             _context = context;
             _hostEnvironment = hostEnvironment; 
+            _UnitOfWork = unitOfWork;
         }
 
-
-        //public async Task<IActionResult> UpcomingEvents()
-        //{
-        //      return _context.Events != null ? 
-        //                  View(await _context.Events.ToListAsync()) :
-        //                  Problem("Entity set 'ApplicationDbContext.Events'  is null.");
-        //}
-
-        // GET: Events
+        // GET: Events  ******   Admin  ***********   
         [Authorize(Roles = $"{Constants.Roles.Administrator}")]
         public async Task<IActionResult> Index(string searchString)
         {
@@ -50,9 +49,9 @@ namespace EventScape.Controllers
                          Problem("Entity set 'ApplicationDbContext.Events'  is null.");
         }
 
-        //Get: Upcoming Events
-        // GET: Events
       
+        
+        //Get: Upcoming Events******   User  ***********   
         public async Task<IActionResult> UpcomingEvents(string searchString)
         {
 
@@ -73,7 +72,9 @@ namespace EventScape.Controllers
                          View(await Events.AsNoTracking().ToListAsync()) :
                          Problem("Entity set 'ApplicationDbContext.Events'  is null.");
         }
-        // GET: Events/Details/5
+
+
+        // GET: Events/Details/5  ******   Admin  *********** 
         [Authorize(Roles = $"{Constants.Roles.Administrator}")]
         public async Task<IActionResult> Details(int? id)
         {
@@ -82,8 +83,7 @@ namespace EventScape.Controllers
                 return NotFound();
             }
 
-            var events = await _context.Events
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var events = await _context.Events.FirstOrDefaultAsync(m => m.ID == id);                         
             if (events == null)
             {
                 return NotFound();
@@ -92,22 +92,59 @@ namespace EventScape.Controllers
             return View(events);
         }
 
-        // GET: Events/Details/5
-        public async Task<IActionResult> UserEventDetails(int? id)
+        // GET: Events/Details/5*****************  User details  *************************************************************************************************************
+        public async Task<IActionResult> UserEventDetails(int? eventId)
         {
-            if (id == null || _context.Events == null)
-            {
-                return NotFound();
-            }
 
-            var events = await _context.Events
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (events == null)
-            {
-                return NotFound();
-            }
+            //if (id == null || _context.Events == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return View(events);
+            //var events = await _context.Events.FirstOrDefaultAsync(m => m.ID == id);
+            //if (events == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //return View(events);
+            // ********************* Shoppingcart.cs approach******************8
+
+            WishList Obj = new WishList()
+            {
+                Event = await _context.Events.FirstOrDefaultAsync(m => m.ID == eventId),
+                Tickets = 1,
+                EventId = (int)eventId
+            };            
+            return View(Obj);
+        }
+
+
+        // Post: Events/Details/5*****************   User details   ***************************************************************************************
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> UserEventDetails(WishList WishListobj)
+        {
+                //adding event to wishlist
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                WishListobj.UserId = claim.Value;
+                WishList cartfromDb = _UnitOfWork.WishList.GetFirstOrDefault(u => u.UserId == claim.Value
+                && u.EventId == WishListobj.EventId);
+            if(cartfromDb == null)
+            {
+                _UnitOfWork.WishList.Add(WishListobj);
+            }
+            else
+            {
+                _UnitOfWork.WishList.IncrementTickets(cartfromDb, WishListobj.Tickets);
+
+            }
+               
+                _UnitOfWork.Save();                
+                 return RedirectToAction(nameof(UpcomingEvents));
+
         }
 
         // GET: Events/Create
@@ -144,7 +181,7 @@ namespace EventScape.Controllers
 
                     EventName = events.EventName,
                     ShowStartDate = events.ShowStartDate,
-                    ShowEndDate = events.ShowEndDate,
+                   // ShowEndDate = events.ShowEndDate,
                     Location = events.Location,
                     MaxCapacity = events.MaxCapacity,
                     Description = events.Description,
@@ -161,7 +198,7 @@ namespace EventScape.Controllers
             return View(events);
         }
 
-        // GET: Events/Edit/5
+        // GET: Events/Edit/5 ******************************* Admin Edit   ***********************************************8
         [Authorize(Roles = $"{Constants.Roles.Administrator}")]
         public async Task<IActionResult> Edit(int? id)
     {
@@ -176,11 +213,11 @@ namespace EventScape.Controllers
                 Id = currentRecord.ID,
                 EventName = currentRecord.EventName,
                 ShowStartDate = currentRecord.ShowStartDate,
-                ShowEndDate = currentRecord.ShowEndDate,
+               // ShowEndDate = currentRecord.ShowEndDate,
                 Location = currentRecord.Location,
                 MaxCapacity = currentRecord.MaxCapacity,
                 Description = currentRecord.Description,
-                Price = currentRecord.Price,
+                Price = (decimal)currentRecord.Price,
                 ExistingImagePath = currentRecord.EventPosterName,                        
              };
             if (currentRecord == null)
@@ -190,10 +227,7 @@ namespace EventScape.Controllers
             return View(EventsModelObj);
         }
 
-       
-        
-
-        // POST: Events/Edit/5
+        // POST: Events/Edit/5***************************   Admin Edit  ********************************************************88
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -210,7 +244,7 @@ namespace EventScape.Controllers
                     e.EventPosterName = events.ExistingImagePath;
                     e.EventName = events.EventName;
                     e.ShowStartDate = events.ShowStartDate;
-                    e.ShowEndDate = events.ShowEndDate;
+//e.ShowEndDate = events.ShowEndDate;
                     e.Location = events.Location;
                     e.MaxCapacity = events.MaxCapacity;
                     e.Description = events.Description;

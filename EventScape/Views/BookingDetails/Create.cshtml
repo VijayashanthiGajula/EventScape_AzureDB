@@ -1,0 +1,44 @@
+﻿@model EventScape.Models.BookingDetails
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>BookingDetails</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BookingID" class="control-label"></label>
+                <select asp-for="BookingID" class ="form-control" asp-items="ViewBag.BookingID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventId" class="control-label"></label>
+                <select asp-for="EventId" class ="form-control" asp-items="ViewBag.EventId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="No_Of_Tickets" class="control-label"></label>
+                <input asp-for="No_Of_Tickets" class="form-control" />
+                <span asp-validation-for="No_Of_Tickets" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitPrice" class="control-label"></label>
+                <input asp-for="UnitPrice" class="form-control" />
+                <span asp-validation-for="UnitPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

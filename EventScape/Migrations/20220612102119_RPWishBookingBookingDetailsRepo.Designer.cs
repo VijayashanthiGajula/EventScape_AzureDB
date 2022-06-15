@@ -4,6 +4,7 @@ using EventScape.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,13 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventScape.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220612102119_RPWishBookingBookingDetailsRepo")]
+    partial class RPWishBookingBookingDetailsRepo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.6")
+                .HasAnnotation("ProductVersion", "6.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -98,88 +100,6 @@ namespace EventScape.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("EventScape.Models.Booking", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("BookingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("BookingStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("OrderTotal")
-                        .HasColumnType("decimal(5,2)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostalCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StreetAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("Booking");
-                });
-
-            modelBuilder.Entity("EventScape.Models.BookingDetails", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("BookingID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EventId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("No_Of_Tickets")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(5,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookingID");
-
-                    b.HasIndex("EventId");
-
-                    b.ToTable("BookingDetails");
-                });
-
             modelBuilder.Entity("EventScape.Models.Events", b =>
                 {
                     b.Property<int>("ID")
@@ -211,6 +131,9 @@ namespace EventScape.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(5,2)");
+
+                    b.Property<DateTime?>("ShowEndDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("ShowStartDate")
                         .HasColumnType("datetime2");
@@ -260,36 +183,6 @@ namespace EventScape.Migrations
                     b.HasIndex("EventsID");
 
                     b.ToTable("UserQueries");
-                });
-
-            modelBuilder.Entity("EventScape.Models.WishList", b =>
-                {
-                    b.Property<int>("WishListId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WishListId"), 1L, 1);
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("EventId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Tickets")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("WishListId");
-
-                    b.HasIndex("EventId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("WishList");
                 });
 
             modelBuilder.Entity("EventScape.ViewModels.AdminDashboardViewModel", b =>
@@ -445,36 +338,6 @@ namespace EventScape.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("EventScape.Models.Booking", b =>
-                {
-                    b.HasOne("EventScape.Areas.Identity.Data.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-                });
-
-            modelBuilder.Entity("EventScape.Models.BookingDetails", b =>
-                {
-                    b.HasOne("EventScape.Models.Booking", "Booking")
-                        .WithMany()
-                        .HasForeignKey("BookingID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EventScape.Models.Events", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Booking");
-
-                    b.Navigation("Event");
-                });
-
             modelBuilder.Entity("EventScape.Models.Events", b =>
                 {
                     b.HasOne("EventScape.ViewModels.AdminDashboardViewModel", null)
@@ -489,7 +352,7 @@ namespace EventScape.Migrations
                         .HasForeignKey("ApplicationUserId");
 
                     b.HasOne("EventScape.Models.Events", "Events")
-                        .WithMany()
+                        .WithMany("UserQueries")
                         .HasForeignKey("EventsID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -497,25 +360,6 @@ namespace EventScape.Migrations
                     b.Navigation("ApplicationUser");
 
                     b.Navigation("Events");
-                });
-
-            modelBuilder.Entity("EventScape.Models.WishList", b =>
-                {
-                    b.HasOne("EventScape.Models.Events", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EventScape.Areas.Identity.Data.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("Event");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -570,6 +414,11 @@ namespace EventScape.Migrations
                 });
 
             modelBuilder.Entity("EventScape.Areas.Identity.Data.ApplicationUser", b =>
+                {
+                    b.Navigation("UserQueries");
+                });
+
+            modelBuilder.Entity("EventScape.Models.Events", b =>
                 {
                     b.Navigation("UserQueries");
                 });

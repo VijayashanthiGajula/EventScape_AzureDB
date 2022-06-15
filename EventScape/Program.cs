@@ -20,7 +20,21 @@ builder.Services.AddControllersWithViews();
 //custom work
 AddAuthorizationPolicies(builder.Services);
 AddScoped();
+//Session obj purpose
+builder.Services.AddDistributedMemoryCache();
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+    options.LoginPath = $"/Identity/Account/Login";
+    options.LogoutPath = $"/Identity/Account/Logout";
+});
 
 var app = builder.Build();
 
@@ -39,6 +53,8 @@ app.UseRouting();
 app.UseAuthentication();;
 
 app.UseAuthorization();
+
+app.UseSession();//custom stuff
 
 app.MapControllerRoute(
     name: "default",
@@ -73,6 +89,9 @@ void AddScoped()
 {
     builder.Services.AddScoped<IUserRepository, UserRespository>();//User rep and Untof work for API purpose
     builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+    builder.Services.AddScoped<IBookingDetailsRepository, BookingDetailsRepository>();
+    builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+    builder.Services.AddScoped<IWishListRepository, WishListRepository>();
     builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 }
