@@ -80,7 +80,14 @@ namespace EventScape.Controllers
             {
                 return NotFound();
             }
+            if(wishList.Tickets<=1)
+            {
+                _unitOfWork.WishList.Remove(wishList);
+            }
+            else { 
             _unitOfWork.WishList.DecrementTickets(wishList, 1);
+           
+            }
             _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
              
