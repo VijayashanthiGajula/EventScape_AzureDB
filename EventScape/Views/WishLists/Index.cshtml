@@ -49,10 +49,10 @@
                 @Html.DisplayFor(modelItem => item.Event.Price) 
             </th>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.WishListId">
+                <a asp-action="Plus" asp-route-id="@item.WishListId">
                     
                     <i class="bi bi-plus-square-fill"></i></a> |
-                <a asp-action="Details" asp-route-id="@item.WishListId">
+                <a asp-action="Minus" asp-route-id="@item.WishListId">
                     
                  <i class="bi bi-dash-square-fill"></i></a> |
                 <a asp-action="Delete" asp-route-id="@item.WishListId"><i class="bi bi-x-square-fill"></i></a>
