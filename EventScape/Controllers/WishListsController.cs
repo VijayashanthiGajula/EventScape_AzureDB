@@ -30,9 +30,13 @@ namespace EventScape.Controllers
 
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+           
+            decimal GrandTotal = 0;
+            
             ShoppingCartViewModel = new ShoppingCartViewModel()
             {
-                CartItems = _unitOfWork.WishList.GetAll(u => u.UserId == claim.Value, includeProperties: "Events")
+                CartItems = _unitOfWork.WishList.GetAll(u => u.UserId == claim.Value, includeProperties: "Event"),
+               
             };
            
             return View(ShoppingCartViewModel);
@@ -40,6 +44,7 @@ namespace EventScape.Controllers
 
 
         }
+       
 
         // GET: WishLists/Details/5
         public async Task<IActionResult> Details(int? id)

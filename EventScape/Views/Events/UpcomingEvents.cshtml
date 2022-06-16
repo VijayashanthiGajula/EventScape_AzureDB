@@ -31,12 +31,12 @@
          @foreach (var item in Model)
          {
             var ImagePath = "~/Image/" + (item.EventPosterName?? "noimage.png");      
-            <div class="col 3">
-               <div class="card shadow-sm">
+            <div class="" >
+               <div class="card shadow-sm Moviecard">
                    <div class="card"  >
                       <img src="@ImagePath" class="card-img-top" height="250"   alt=""  asp-append-version="true">
                       <div class="card-body"  >
-                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.EventName)</h5>
+                        <h4 class="card-title text-right icon"><i class="material-icons" data-toggle="modal" data-target="#flipflop">@Html.DisplayFor(modelItem => item.EventName)</h4>
                         <p class="card-text "  style="  height: 100px;  overflow: auto;"> @item.Description </p>
                          <small class="text-muted p-1">@item.MaxCapacity</small>
                          <small class="text-muted p-1">$@item.Price</small>
@@ -51,5 +51,13 @@
       
     </div>
   </div>
-
+  <div class="card">
+      <div class="card-block">
+        <h4 class="card-title text-right icon"><i class="material-icons" 
+            data-toggle="modal" data-target="#flipflop">settings</i></h4>
+         <img src="/Image/event1.jpg" class="card-img-top" height="250"   alt=""  asp-append-version="true">
+        <h4 class="card-title mt-2">Card 2</h4>
+        <p class="card-text">Hello Card 2, Nice to see you</p>       
+      </div>
+    </div>
 </main>
