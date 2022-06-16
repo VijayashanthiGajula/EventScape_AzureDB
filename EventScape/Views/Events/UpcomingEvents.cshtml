@@ -72,12 +72,14 @@
                              <p class="text">   @item.Description  </p>
                          </div>
                      <div class="movie_social">
-                      <ul>
-                          
+                      <ul>                          
                         <li><i class="bi bi-alarm-fill"></i>@item.ShowStartDate</li>
-                        <li><i class="material-icons"> $@item.Price</i></li>
-                        <li><a asp-action="UserEventDetails" asp-route-eventId="@item.ID" class="btn  ">View </a></li>
+                        <li> <i class="bi bi-currency-dollar"></i> @item.Price</li>  
+                         <li><i class="bi bi-info-circle"></i> 
+                            <a asp-action="UserEventDetails" asp-route-eventId="@item.ID" 
+                             class="btn btn-primary rounded-pill"> Click to view </a></li>
                       </ul>
+
                       </div>
                      </div>
                      <div asp-append-version="true" class="blur_back"      >
