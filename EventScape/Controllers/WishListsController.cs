@@ -17,7 +17,7 @@ namespace EventScape.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IUnitOfWork _unitOfWork;
-        public WishListVM VM { get; set; }
+        public ShoppingCartViewModel ShoppingCartViewModel { get; set; }
         public WishListsController(ApplicationDbContext context, IUnitOfWork unitOfWOrk)
         {
             _context = context;
@@ -27,8 +27,15 @@ namespace EventScape.Controllers
         // GET: WishLists
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.WishList.Include(w => w.ApplicationUser).Include(w => w.Event);
-            return View(await applicationDbContext.ToListAsync());
+
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            ShoppingCartViewModel = new ShoppingCartViewModel()
+            {
+                CartItems = _unitOfWork.WishList.GetAll(u => u.UserId == claim.Value, includeProperties: "Events")
+            };
+           
+            return View(ShoppingCartViewModel);
             
 
 

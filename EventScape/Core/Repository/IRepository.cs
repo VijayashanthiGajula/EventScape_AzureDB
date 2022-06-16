@@ -9,14 +9,13 @@ namespace EventScape.Core.Repository
             TEntity Get(int id);
 
             IEnumerable<TEntity> GetAll(
-                Expression<Func<TEntity, bool>> filter = null,
-                Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                string includeProperties = null
+                 Expression<Func<TEntity, bool>> filter=null,
+                string? includeProperties = null
                 );
 
             TEntity GetFirstOrDefault(
-                Expression<Func<TEntity, bool>> filter = null,
-                string includeProperties = null
+                Expression<Func<TEntity, bool>> filter,
+                string? includeProperties = null
                 );
 
             void Add(TEntity entity);
