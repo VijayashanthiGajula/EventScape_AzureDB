@@ -31,17 +31,19 @@ namespace EventScape.Controllers
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
            
-            decimal GrandTotal = 0;
+            
             
             ShoppingCartViewModel = new ShoppingCartViewModel()
             {
                 CartItems = _unitOfWork.WishList.GetAll(u => u.UserId == claim.Value, includeProperties: "Event"),
-               
+                
             };
+            foreach( var item in ShoppingCartViewModel.CartItems)
+            {
+                ShoppingCartViewModel.CartTotal += (item.Event.Price * item.Tickets);
+            }
            
-            return View(ShoppingCartViewModel);
-            
-
+            return View(ShoppingCartViewModel);  
 
         }
        

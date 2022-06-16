@@ -4,12 +4,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <main>
-  <section class="py-2 text-center container">
+  <section class="py-2  container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Upcoming Events</h1>
-        <p class="lead text-muted"></p>
-        <p>
+       
+       <div class=""> <a href="/Events/UpcomingEvents"><h2>Happenings</h2></a>
+               <a href="/Events/UpcomingEvents"><h2>Coming soon</h2></a></div> 
+        
             <form asp-action="UpcomingEvents" method="get">
     <div class="form-actions no-color">
         <p>
@@ -27,37 +28,68 @@
 
   <div class="album bg-light">
     <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <div>
          @foreach (var item in Model)
          {
             var ImagePath = "~/Image/" + (item.EventPosterName?? "noimage.png");      
-            <div class="" >
-               <div class="card shadow-sm Moviecard">
-                   <div class="card"  >
-                      <img src="@ImagePath" class="card-img-top" height="250"   alt=""  asp-append-version="true">
-                      <div class="card-body"  >
-                        <h4 class="card-title text-right icon"><i class="material-icons" data-toggle="modal" data-target="#flipflop">@Html.DisplayFor(modelItem => item.EventName)</h4>
-                        <p class="card-text "  style="  height: 100px;  overflow: auto;"> @item.Description </p>
-                         <small class="text-muted p-1">@item.MaxCapacity</small>
+              @*  <div class="col">
+                   <div class="card rounded shadow-sm"   >
+                      <img src="@ImagePath" class="card-img-top" width="100%" height="225"   alt=""  asp-append-version="true">
+                      <div class="card-body">
+                        <h4 class="card-title text-right">@Html.DisplayFor(modelItem => item.EventName)</h4>
+                       @* <p class="card-text "  style="  height: 100px;  overflow: auto;"> @item.Description </p>
+                        *@ @*<div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted p-1">@item.MaxCapacity</small>
                          <small class="text-muted p-1">$@item.Price</small>
                           <small class="text-muted p-1">@item.Location</small>
+                          </div>
                       </div>
+                    
                       <div class="card-footer"> <a  asp-action="UserEventDetails" asp-route-eventId="@item.ID" class="btn btn-primary">View </a></div>                      
-                    </div>                  
-               </div>             
-             </div>
+                   </div> 
+                   </div>*@
+            <div class="movie_card" id="bright">
+                  <div class="info_section">
+                        
+                        <div class="movie_header p-2">
+                             <table>
+                          <tr class="p-2">
+                         <td class="col-4 p-2 "> 
+                             <div class=""> 
+                             <img class="locandina" src="@ImagePath"  asp-append-version="true"/>
+                         </div></td>
+                         <td class="col-10 p-2">
+                         <div class="">
+                             <h1>@Html.DisplayFor(modelItem => item.EventName)</h1></div>
+                              
+                             <h4>@item.Location</h4>
+                          <span class="minutes">@item.MaxCapacity</span> <p class="type">Seats available</p>
+                          </td>
+                           </tr>
+                      </table>
+                        </div>
+                         <div class="movie_desc">
+                             <p class="text">   @item.Description  </p>
+                         </div>
+                     <div class="movie_social">
+                      <ul>
+                          
+                        <li><i class="bi bi-alarm-fill"></i>@item.ShowStartDate</li>
+                        <li><i class="material-icons"> $@item.Price</i></li>
+                        <li><a asp-action="UserEventDetails" asp-route-eventId="@item.ID" class="btn  ">View </a></li>
+                      </ul>
+                      </div>
+                     </div>
+                     <div asp-append-version="true" class="blur_back"      >
+                      <img src="@ImagePath" class="card-img-top"   alt=""  asp-append-version="true">
+                    </div>
+                    </div>
+                    
          } 
       </div>
       
     </div>
   </div>
-  <div class="card">
-      <div class="card-block">
-        <h4 class="card-title text-right icon"><i class="material-icons" 
-            data-toggle="modal" data-target="#flipflop">settings</i></h4>
-         <img src="/Image/event1.jpg" class="card-img-top" height="250"   alt=""  asp-append-version="true">
-        <h4 class="card-title mt-2">Card 2</h4>
-        <p class="card-text">Hello Card 2, Nice to see you</p>       
-      </div>
-    </div>
+ 
+
 </main>
