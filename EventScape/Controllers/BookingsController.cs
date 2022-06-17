@@ -119,7 +119,7 @@ namespace EventScape.Controllers
             booking.BookingStatus = Constants.Status.BookingConfirmed;
             _context.Update(booking);
             _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(AdminBookingRequests));
             
         }
        

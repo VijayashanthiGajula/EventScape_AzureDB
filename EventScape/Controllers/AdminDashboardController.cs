@@ -25,7 +25,7 @@ namespace EventScape.Controllers
                          select s;
             var eventsCount = Events.Count();
             var eventslist = Events.Where(e => e.ShowStartDate >= DateTime.Now).Take(5);
-
+            ViewBag.NewBookingsCount = _unitOfWork.Booking.GetAll(b => b.BookingStatus == Constants.Status.BookingPending).Count();
             if (eventslist != null)
             {
                 var model = new ViewModels.AdminDashboardViewModel()

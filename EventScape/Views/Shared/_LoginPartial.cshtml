@@ -3,6 +3,9 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject IEnumerable<Booking> Booking
+ 
+
 
 <ul class="navbar-nav">
    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
@@ -12,10 +15,10 @@
                     @if (User.IsInRole("Administrator"))
                       {                     
                                <li class="nav-item">
-                                 <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">  <i class="bi bi-bell-fill"></i>  </a>
+                                 <a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="AdminBookingRequests"> <span class="badge rounded-pill bg-warning">5 </span> <i class="bi bi-bell-fill"></i>  </a>
                                  </li>
                                  <li class="nav-item">
-                               <a class="nav-link text-white" asp-area="" asp-controller="UserQueries" asp-action="Index"> <i class="bi bi-envelope-fill"></i></a>
+                               <a class="nav-link text-white" asp-area="" asp-controller="UserQueries" asp-action="Index"><span class="badge rounded-pill bg-warning">2</span> <i class="bi bi-envelope-fill"></i></a>
                               </li>
               
                        }
