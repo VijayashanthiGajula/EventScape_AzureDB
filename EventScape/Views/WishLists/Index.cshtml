@@ -11,7 +11,8 @@
       
 
       <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" class=" rounded-pill nav-link active" aria-current="page">Continue to shopping</a></li>       
+        <li class="nav-item">  
+            <a  asp-area="" asp-controller="Events" asp-action="UpcomingEvents" class=" rounded-pill nav-link active" aria-current="page">Continue to shopping</a></li>       
       </ul>
     </header>
   </div>
@@ -74,7 +75,7 @@
             </td>
            
             <td>
-                  <h5 class="card-title"> @Html.DisplayFor(modelItem =>modelItem.CartTotal )</h5>
+                  <h5 class="card-title"> @Html.DisplayFor(modelItem =>modelItem.Booking.OrderTotal )</h5>
             
             
             </td>
@@ -83,6 +84,15 @@
 
 </tbody>
 </table>
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-end py-2 mb-4 border-bottom">
+      
 
+      <ul class="nav nav-pills">
+        <li class="nav-item">  
+            <a  asp-area="" asp-controller="WishLists" asp-action="Summary" class=" rounded-pill nav-link active" aria-current="page">Summary</a></li>       
+      </ul>
+    </header>
+  </div>
 
            

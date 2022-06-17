@@ -8,8 +8,16 @@
             public const string UserRole = "UserRole";
             public const string Administrator = "Administrator";
             public const string BlockedUser = "BlockedUser";
-        }
 
+
+        }
+        public static class Status
+        {
+            public const string BookingPending = "OnHold";
+            public const string BookingConfirmed = "Confirmed";
+            public const string QueryStatusActive = "OnHold";
+            public const string QueryStatusClosed = "Confirmed";
+        }
         public static class Policies
         {
             public const string RequireAdmin = "RequireAdmin";

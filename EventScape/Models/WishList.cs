@@ -33,6 +33,6 @@ namespace EventScape.Models
         public DateTime DateCreated {get;set;}
 
         [NotMapped]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
     }
 }

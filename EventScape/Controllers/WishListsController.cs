@@ -10,6 +10,7 @@ using EventScape.Models;
 using System.Security.Claims;
 using EventScape.Core.Repository;
 using EventScape.ViewModels;
+using EventScape.Core;
 
 namespace EventScape.Controllers
 {
@@ -30,25 +31,93 @@ namespace EventScape.Controllers
 
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-           
-            
-            
             ShoppingCartViewModel = new ShoppingCartViewModel()
             {
                 CartItems = _unitOfWork.WishList.GetAll(u => u.UserId == claim.Value, includeProperties: "Event"),
-                
+                Booking = new()
             };
             foreach( var item in ShoppingCartViewModel.CartItems)
             {
-                ShoppingCartViewModel.CartTotal += (item.Event.Price * item.Tickets);
+                ShoppingCartViewModel.Booking.OrderTotal += (item.Event.Price * item.Tickets);
             }
            
             return View(ShoppingCartViewModel);  
 
         }
-       
- 
-     
+        //Get: Summary
+        public async Task<IActionResult> Summary()
+        {
+
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+
+
+            ShoppingCartViewModel = new ShoppingCartViewModel()
+            {
+                CartItems = _unitOfWork.WishList.GetAll(u => u.UserId == claim.Value, includeProperties: "Event"),
+                Booking=new()
+            };
+            ShoppingCartViewModel.Booking.ApplicationUser = _unitOfWork.User.GetUserById(claim.Value);
+            ShoppingCartViewModel.Booking.Name = ShoppingCartViewModel.Booking.ApplicationUser.FirstName + ShoppingCartViewModel.Booking.ApplicationUser.LastName;
+            ShoppingCartViewModel.Booking.PhoneNumber = ShoppingCartViewModel.Booking.ApplicationUser.PhoneNumber;
+            ShoppingCartViewModel.Booking.Email = ShoppingCartViewModel.Booking.ApplicationUser.Email; 
+
+            foreach (var item in ShoppingCartViewModel.CartItems)
+            {
+                ShoppingCartViewModel.Booking.OrderTotal += (item.Event.Price * item.Tickets);
+            }
+
+            return View(ShoppingCartViewModel);
+            //return View();
+
+        }
+
+        //Post Summary
+        [HttpPost]
+        [ActionName("Summary")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SummaryPost(ShoppingCartViewModel ShoppingCartViewModel)
+        {
+
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            ShoppingCartViewModel.CartItems = _unitOfWork.WishList.GetAll(u => u.UserId == claim.Value, includeProperties: "Event");
+            ShoppingCartViewModel.Booking.BookingStatus = Constants.Status.BookingPending;
+            ShoppingCartViewModel.Booking.BookingDate = System.DateTime.Now;
+            ShoppingCartViewModel.Booking.ApplicationUserId = claim.Value;
+
+
+            foreach (var item in ShoppingCartViewModel.CartItems)
+            {
+                ShoppingCartViewModel.Booking.OrderTotal += (item.Event.Price * item.Tickets);
+            }
+            _unitOfWork.Booking.Add(ShoppingCartViewModel.Booking);
+            _unitOfWork.Save();
+
+
+            foreach (var item in ShoppingCartViewModel.CartItems)
+            {
+                BookingDetails bookingDetails = new BookingDetails()
+                {
+                    EventId = item.EventId,
+                    BookingID = ShoppingCartViewModel.Booking.Id,
+                    UnitPrice = item.Price,
+                    No_Of_Tickets = item.Tickets
+
+                };
+                _unitOfWork.BookingDetails.Add(bookingDetails);
+                _unitOfWork.Save();
+                 
+            }
+            //Removing executed booking
+            _unitOfWork.WishList.RemoveRange(ShoppingCartViewModel.CartItems);
+            _unitOfWork.Save();
+         
+            return RedirectToAction("Index","Home");
+
+        }
         // Increment: WishLists/Plus
         public async Task<IActionResult> Plus(int? id)
         {
