@@ -70,14 +70,14 @@
                         </div>
                          <div class="movie_desc">
                              <p class="text">   @item.Description  </p>
+                             <a asp-action="UserEventDetails" asp-route-eventId="@item.ID" 
+                             class="btn btn-primary rounded-pill"> Click to view </a>
                          </div>
                      <div class="movie_social">
                       <ul>                          
                         <li><i class="bi bi-alarm-fill"></i>@item.ShowStartDate</li>
                         <li> <i class="bi bi-currency-dollar"></i> @item.Price</li>  
-                         <li><i class="bi bi-info-circle"></i> 
-                            <a asp-action="UserEventDetails" asp-route-eventId="@item.ID" 
-                             class="btn btn-primary rounded-pill"> Click to view </a></li>
+                         
                       </ul>
 
                       </div>

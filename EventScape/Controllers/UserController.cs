@@ -22,7 +22,7 @@ namespace EventScape.Controllers
         [Authorize(Roles = $"{Constants.Roles.Administrator}")]
         public IActionResult Index()
         {
-            var users = _UnitOfWork.User.GetUsers();
+            var users = _UnitOfWork.User.GetUsers();        
             return View(users);
         }
         //GET method

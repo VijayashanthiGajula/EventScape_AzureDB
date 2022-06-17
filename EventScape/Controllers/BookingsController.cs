@@ -7,24 +7,46 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EventScape.Data;
 using EventScape.Models;
+using EventScape.Core.Repository;
+using EventScape.Core;
+using EventScape.ViewModels;
 
 namespace EventScape.Controllers
 {
     public class BookingsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public BookingsController(ApplicationDbContext context)
+        public BookingsViewModel BookingsVM { get; set; }
+        public BookingsController(ApplicationDbContext context, IUnitOfWork unitOfWOrk)
         {
             _context = context;
+            _unitOfWork = unitOfWOrk;
         }
 
-        // GET: Bookings
-        public async Task<IActionResult> Index()
+        // GET: Users page- booking history
+        public async Task<IActionResult> UserBookingHistory()
         {
             var applicationDbContext = _context.Booking.Include(b => b.ApplicationUser);
             return View(await applicationDbContext.ToListAsync());
         }
+
+        // GET: Admins page- booking history
+        public async Task<IActionResult> AdminBookingRequests()
+        { 
+            
+            BookingsViewModel bookingReq = new BookingsViewModel()
+            {
+                newBookingRequests = _unitOfWork.Booking.GetAll(b=>b.BookingStatus==Constants.Status.BookingPending),
+                                    
+                ConfirmedBookingRequests = _unitOfWork.Booking.GetAll(b => b.BookingStatus == Constants.Status.BookingConfirmed)
+                                   
+            };
+
+            return View(bookingReq);
+        }
+        
 
         // GET: Bookings/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -89,38 +111,18 @@ namespace EventScape.Controllers
         // POST: Bookings/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ApplicationUserId,BookingDate,OrderTotal,BookingStatus,PhoneNumber,StreetAddress,City,State,PostalCode,Name")] Booking booking)
+       
+        public async Task<IActionResult> BookingConfirmation(int id)
         {
-            if (id != booking.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(booking);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!BookingExists(booking.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ApplicationUserId"] = new SelectList(_context.Users, "Id", "Id", booking.ApplicationUserId);
-            return View(booking);
+            
+            Booking booking= await _context.Booking.FindAsync(id);
+            booking.BookingStatus = Constants.Status.BookingConfirmed;
+            _context.Update(booking);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+            
         }
+       
 
         // GET: Bookings/Delete/5
         public async Task<IActionResult> Delete(int? id)

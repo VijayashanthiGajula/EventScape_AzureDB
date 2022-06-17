@@ -19,8 +19,8 @@
 							<i class="bi bi-calendar-event-fill"></i>
 						</div>
 					</div>
-					<div>
-						<span class="fw-bold display-6 mb-5" data-vanilla-counter="" data-start-at="0" data-end-at= "@Html.DisplayFor(model => model.TotalEventsCount)" data-time="1000" data-delay="60" data-format="{}">125</span>
+					<div><span class="fw-bold display-6 mb-5" data-vanilla-counter="" data-start-at="0" data-end-at= "@Html.DisplayFor(model => model.TotalEventsCount)" data-time="1000"
+						data-delay="60" data-format="{}">125</span>
 						<p class="lead" editable="inline"><span><b>Upcoming</b></span> Events</p>
 					</div>
 				</div>
@@ -35,7 +35,7 @@
 						</div>
 					</div>
 					<div>
-						<span class="fw-bold display-6 mb-5" data-vanilla-counter="" data-start-at="0" data-end-at="53" data-time="1000" data-delay="60" data-format="{}">53</span>
+						<span class="fw-bold display-6 mb-5" data-vanilla-counter="" data-start-at="0" data-end-at="@Html.DisplayFor(model => model.RegisteredUsers)" data-time="1000" data-delay="60" data-format="{}">53</span>
 						<p class="lead" editable="inline"><b>Users</b> </p>
 					</div>
 				</div>
@@ -50,7 +50,7 @@
 						</div>
 					</div>
 					<div>
-						<span class="fw-bold display-6 mb-5" data-vanilla-counter="" data-start-at="0" data-end-at="250" data-time="1000" data-delay="60" data-format="{}">250</span>
+						<span class="fw-bold display-6 mb-5" data-vanilla-counter="" data-start-at="0" data-end-at="@Html.DisplayFor(model => model.TotalConfirmedBookings)" data-time="1000" data-delay="60" data-format="{}">250</span>
 						<p class="lead" editable="inline"><b>Sales</b> </p>
 					</div>
 				</div>
@@ -65,7 +65,7 @@
 						</div>
 					</div>
 					<div>
-						<span class="fw-bold display-6 mb-5" data-vanilla-counter="" data-start-at="0" data-end-at="250" data-time="1000" data-delay="60" data-format="{}">250</span>
+						<span class="fw-bold display-6 mb-5" data-vanilla-counter="" data-start-at="0" data-end-at="@Html.DisplayFor(model => model.TotalEarnings)" data-time="1000" data-delay="60" data-format="{}">250</span>
 						<p class="lead" editable="inline"><b>Earnings</b> </p>
 					</div>
 				</div>
@@ -83,55 +83,49 @@
 						<h4>Upcoming Events</h4>
 					</div>
 					<div>
-					<table class="table table-hover">
-					 <thead>
-   
-  </thead>
-						 <tbody>
-					  <tr class="">
-      <th scope="row">Concerte</th>
-	   <td>Vijaya</td>
-     
-      <td>Auckland</td>
-     
-    </tr>
-					  <tr class="table-secondary">
-      <th scope="row">Drama</th>
-      <td>Vijaya</td>
-    
-      <td>Auckland</td>
-    </tr>
-					<tr>
-						 <th scope="row">Drama</th>
-					  <td>Jenny</td>
-     
-					  <td>Hamilton</td>
-					</tr>
-					<tr class="table-secondary">
-					  <th scope="row">Drama</th>
-					  <td>Vijaya</td>
-    
-					  <td>Auckland</td>
-					</tr>
-					<tr>
-						 <th scope="row">Drama</th>
-					  <td>Jenny</td>
-     
-					  <td>Hamilton</td>
-					</tr>
-					<tr class="table-secondary">
-					  <th scope="row">Drama</th>
-					  <td>Vijaya</td>
-    
-					  <td>Auckland</td>
-					</tr>
-					<tr>
-						 <th scope="row">Drama</th>
-					  <td>Jenny</td>
-     
-					  <td>Hamilton</td>
-					</tr>
-					</table>
+		<table class="table table-striped w-100 ">
+		 <thead>
+				  <tr scope="row">
+            <th>
+               Event
+            </th>        
+            <th>
+               Location
+            </th>
+            <th>
+                MaxCapacity
+            </th>            
+            <th>
+                Price
+            </th>
+           
+             
+        </tr>
+		 </thead>
+			<tbody>
+		@foreach (var item in Model.UpcomingEvents) {
+			<tr class="table-secondary" >
+            <td>
+                @Html.DisplayFor(modelItem => item.EventName)
+            </td>
+           
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+           
+          <td>
+                @Html.DisplayFor(modelItem => item.MaxCapacity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+           
+           
+        </tr>
+}
+		</tbody>
+		</table>
 					
 					</div>
 				</div>
@@ -180,56 +174,8 @@
 						<h4>User Queries</h4>
 					</div>
 					<div>
-					<table class="table">
-    <thead>
-        <tr>
-            <th>
-               UpcomingEvents
-            </th>
-            <th>
-                 ShowStartDate
-            </th>
-            
-            <th>
-               Location
-            </th>
-            <th>
-                MaxCapacity
-            </th>
-            
-            <th>
-                Price
-            </th>
-           
-             
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.UpcomingEvents) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShowStartDate)
-            </td>
-           
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-           
-          <td>
-                @Html.DisplayFor(modelItem => item.MaxCapacity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-           
-           
-        </tr>
-}
-    </tbody>
-</table>
+					
+				
 					
 					</div>
 				</div>
@@ -239,11 +185,51 @@
 	<div class="col">
 			<div class="card card-body rounded-3 shadow-lg ">
 				<div class="d-inline-flex align-items-center" style="min-height:400px">
-					<div class="me-2">
-						
-					</div>
-					<div>
-					
+					<div class="me-2 row ">
+						<h4>Booking Requests</h4>
+					</div><br/>
+					<div class="container-fluid row">
+						<table class="table table-striped w-100 ">
+						 <thead>
+								  <tr scope="row">
+							<th>
+							   Event
+							</th>        
+							<th>
+							   Location
+							</th>
+							<th>
+								MaxCapacity
+							</th>            
+							<th>
+								Price
+							</th>
+           
+             
+						</tr>
+						 </thead>
+						<tbody>
+						@foreach (var item in Model.BookingRequests) {
+							<tr class="table-secondary" >
+							<td>
+								@Html.DisplayFor(modelItem => item.Name)
+							</td>   
+							<td>
+								@Html.DisplayFor(modelItem => item.BookingDate)
+							</td>
+           
+						  <td>
+								@Html.DisplayFor(modelItem => item.BookingStatus)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.OrderTotal)
+							</td>
+           
+           
+						</tr>
+				}
+						</tbody>
+						</table>
 					
 					</div>
 				</div>

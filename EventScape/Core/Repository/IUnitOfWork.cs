@@ -1,4 +1,6 @@
-﻿namespace EventScape.Core.Repository
+﻿using EventScape.Models;
+
+namespace EventScape.Core.Repository
 {
     public interface IUnitOfWork
     {

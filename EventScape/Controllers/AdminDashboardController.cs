@@ -1,4 +1,6 @@
 ﻿using EventScape.Areas.Identity.Data;
+using EventScape.Core;
+using EventScape.Core.Repository;
 using EventScape.Data;
 using EventScape.Models;
 using EventScape.ViewModels;
@@ -11,17 +13,14 @@ namespace EventScape.Controllers
     {
 
         private readonly ApplicationDbContext _context;
-        public AdminDashboardController(ApplicationDbContext context)
+        private readonly IUnitOfWork _unitOfWork;
+        public AdminDashboardController(ApplicationDbContext context, IUnitOfWork unitOfWork)
         {
             _context = context;
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
-        {
-            // ViewData["UpcomingEvents"] =eventslist;
-           
-            // var RegisteredUsers = _context.Users.Where(u=>u.)
-            //var Sales = _context.Events.Count();
-            //var Earnings = _context.Events.Count();
+        {          
             var Events = from s in _context.Events
                          select s;
             var eventsCount = Events.Count();
@@ -32,18 +31,23 @@ namespace EventScape.Controllers
                 var model = new ViewModels.AdminDashboardViewModel()
                 {
                     TotalEventsCount = eventsCount,
+                    TotalConfirmedBookings = _unitOfWork.Booking.GetAll(b => b.BookingStatus == Constants.Status.BookingConfirmed).Count(),
+                    RegisteredUsers = _unitOfWork.User.GetUsers().Count(),
+                    TotalEarnings = _unitOfWork.Booking.GetAll().Sum(b => b.OrderTotal),
                     UpcomingEvents = eventslist as IEnumerable<Events>,
+                    BookingRequests = _context.Booking.OrderBy(b => b.BookingDate).Take(5)
+
                 };
-                return View(model);
-            }
+            return View(model);
+        }
             else
             {
                 return Problem("Entity set 'ApplicationDbContext.Events'  is null.");
-            }
-           
+    }
 
-                    
-                    
-        }
+
+
+
+}
     }
 }

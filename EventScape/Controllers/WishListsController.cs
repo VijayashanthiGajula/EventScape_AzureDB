@@ -18,7 +18,9 @@ namespace EventScape.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IUnitOfWork _unitOfWork;
+       
         public ShoppingCartViewModel ShoppingCartViewModel { get; set; }
+        public Events Events { get; set; }
         public WishListsController(ApplicationDbContext context, IUnitOfWork unitOfWOrk)
         {
             _context = context;
@@ -107,9 +109,14 @@ namespace EventScape.Controllers
                     No_Of_Tickets = item.Tickets
 
                 };
+
                 _unitOfWork.BookingDetails.Add(bookingDetails);
                 _unitOfWork.Save();
-                 
+                Events E = _context.Events.FirstOrDefault(i => i.ID == item.EventId);
+                E.MaxCapacity = E.MaxCapacity - item.Tickets;
+                _context.Events.Update(E);
+                _context.SaveChanges();
+
             }
             //Removing executed booking
             _unitOfWork.WishList.RemoveRange(ShoppingCartViewModel.CartItems);
@@ -178,6 +185,8 @@ namespace EventScape.Controllers
             return RedirectToAction(nameof(Index));
 
         }
+
+       
 
         private bool WishListExists(int id)
         {
