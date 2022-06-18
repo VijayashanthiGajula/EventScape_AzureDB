@@ -1,8 +1,183 @@
-﻿@{
+﻿
+@model IEnumerable<EventScape.Models.UserQueries>
+@{
     ViewData["Title"] = "Home Page";
+     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<head>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</head>
+<body>
+    <header class="container-fluid text-padding-32 text-center" id="home">
+
+   
+ 
+  </header>
+
+ <!---------------------------------------------------------Slider------------------------------------------------------->
+
+
+
+
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+<div class="carousel-inner" style="width:90%; margin-left:50px; height: 550px;">
+<div class="carousel-item active">
+<img class="d-block w-100 " src="./images/balloons.png" alt="First slide">
 </div>
+<div class="carousel-item">
+<img class="d-block w-100" src="./images/drimk.png" alt="Second slide">
+</div>
+<div class="carousel-item">
+<img class="d-block w-100" src="./images/tickets.png" alt="Third slide">
+</div>
+<div class="carousel-item">
+<img class="d-block w-100" src="./images/moredrimk.png" alt="Third slide">
+</div>
+<div class="carousel-item">
+<img class="d-block w-100" src="./images/weddin.png" alt="Third slide">
+</div>
+
+<a class="carousel-control-prev " href="#carouselExampleControls" role="button" data-slide="prev">
+<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+
+</a>
+<a class="carousel-control-next " href="#carouselExampleControls" role="button" data-slide="next">
+<span class="carousel-control-next-icon" aria-hidden="true"></span>
+
+</a>
+</div>
+</div>
+<!---------------------------------------------------------------------/Slider--------------------------------------------------------->
+
+
+
+<!-----------------------------------------------------------------------------Text------------------------------------------------------>
+<div class="container-fluid shadow p-3 mb-5 bg-primary rounded" style="margin-top: 40px;">
+<h2 class="text-center fw-semibold text-primary" style=" font-size: 25px; font-weight:bold; font-style: italic; text-align:center; background-color:#18bc9c; padding: 50px;">
+Eventscape. Book with us and escape into adventure. From mountains to lakes, from Disneyland to Fairytale, we have it all.
+<br /> <a href="#" style=" color: yellow; font-size: 25px; text-decoration:none;">Register Now</a> to get a special 20% Discount on your first ticket. </h2>
+</div>
+<!-------------------------------------------------------------------------/Text----------------------------------------------------------->
+
+
+
+
+<!---------------------------------------------------------------Events--------------------------------------------------------->
+<div class="row" style="margin-left: 50px; ">
+<div class="col-sm-3 shadow" style=" margin:20px;">
+
+<img class="card-img-top" src="./images/Logo_NoBackground.png" />
+<h4 class="card-title" style="text-align:center;"><b>Music Concerte</b></h4>
+<p class="card-text" style="text-align:center;">
+This is the latest music concerte filled with your favourite band and singers.
+</p>
+<br />
+
+<a asp-area="" asp-controller="Home" asp-action="EventDetail" class="btn btn-primary" style="margin-left:70px; margin-bottom: 10px;">
+Event Detail
+</a>
+</div>
+<div class="col-sm-3 shadow" style=" margin:20px;">
+
+<img class="card-img-top" src="./images/Logo_NoBackground.png" />
+<h4 class="card-title" style="text-align:center;"><b>Music Concerte</b></h4>
+<p class="card-text" style="text-align:center;">
+This is the latest music concerte filled with your favourite band and singers.
+</p>
+<br />
+
+<a asp-area="" asp-controller="Home" asp-action="EventDetail" class="btn btn-primary" style="margin-left:70px; margin-bottom: 10px;">
+Event Detail
+</a>
+</div>
+<div class="col-sm-3 shadow" style=" margin:20px;">
+
+<img class="card-img-top" src="./images/Logo_NoBackground.png" />
+<h4 class="card-title" style="text-align:center;"><b>Music Concerte</b></h4>
+<p class="card-text" style="text-align:center;">
+This is the latest music concerte filled with your favourite band and singers.
+</p>
+<br />
+
+<a asp-area="" asp-controller="Home" asp-action="EventDetail" class="btn btn-primary" style="margin-left:70px; margin-bottom: 10px;">
+Event Detail
+</a>
+</div>
+</div>
+<!---------------------------------------------------------------------------/Events------------------------------------------------------>
+<br />
+<br />
+<br />
+<!-----------------------------------------------------------Gallery---------------------------------------------------->
+<div class="container-fluid shadow p-3 mb-5 bg-body rounded">
+<h2 class="text-center fw-semibold text-primary"> Our Gallery</h2>
+</div>
+
+
+<div class="row">
+<div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+<img
+src="./images/lamp.png"
+class="w-100 shadow-1-strong rounded mb-4"
+alt="Boat on Calm Water"
+/>
+
+
+
+
+
+<img
+src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain1.webp"
+class="w-100 shadow-1-strong rounded mb-4"
+alt="Wintry Mountain Landscape"
+/>
+</div>
+
+
+
+
+
+<div class="col-lg-4 mb-4 mb-lg-0">
+<img
+src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain2.webp"
+class="w-100 shadow-1-strong rounded mb-4"
+alt="Mountains in the Clouds"
+/>
+
+
+
+
+
+<img
+src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+class="w-100 shadow-1-strong rounded mb-4"
+alt="Boat on Calm Water"
+/>
+</div>
+
+
+
+
+
+<div class="col-lg-4 mb-4 mb-lg-0">
+<img
+src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(18).webp"
+class="w-100 shadow-1-strong rounded mb-4"
+alt="Waves at Sea"
+/>
+
+
+
+
+
+<img
+src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain3.webp"
+class="w-100 shadow-1-strong rounded mb-4"
+alt="Yosemite National Park"
+/>
+</div>
+</div>
+
+
+
+</body>
