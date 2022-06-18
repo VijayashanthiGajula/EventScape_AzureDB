@@ -13,7 +13,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
-    }
+    }   
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -37,5 +37,11 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<EventScape.Models.Events>? Events { get; set; }
     public DbSet<EventScape.Models.UserQueries>? UserQueries { get; set; }
     public DbSet<EventScape.ViewModels.AdminDashboardViewModel>? AdminDashboardViewModel { get; set; }
+    public DbSet<EventScape.Models.BookingDetails>? BookingDetails { get; set; }
+    public DbSet<EventScape.Models.Booking>? Booking { get; set; }
+    public DbSet<EventScape.Models.WishList>? WishList { get; set; }
+    
+
+
 }
  

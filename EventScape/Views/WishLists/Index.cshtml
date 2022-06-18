@@ -1,0 +1,98 @@
+﻿@model  EventScape.ViewModels.ShoppingCartViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+ <div class="container">
+    <header class="d-flex flex-wrap justify-content-end py-2 mb-4 border-bottom">
+      
+
+      <ul class="nav nav-pills">
+        <li class="nav-item">  
+            <a  asp-area="" asp-controller="Events" asp-action="UpcomingEvents" class=" rounded-pill nav-link active" aria-current="page">Continue to shopping</a></li>       
+      </ul>
+    </header>
+  </div>
+
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+<table class="table">
+   
+    <tbody>
+@foreach (var item in Model.CartItems) {
+      var ImagePath = "~/Image/" + (item.Event.EventPosterName?? "noimage.png");
+        <tr class="">
+            <td class="col-2 card-body">                 
+                <img src="@ImagePath " class=" img-thumbnail border-0 rounded-4 d-inline-block"  style="width:100%; height:150px;"   asp-append-version="true">
+            </td>           
+            <td class="col-6">                               
+             <div class=" text-center">
+               <div class="card-body">
+                <h5 class="card-title"> @Html.DisplayFor(modelItem => item.Event.EventName)</h5>
+                <p class="card-text">@Html.DisplayFor(modelItem => item.Event.Description)</p >  
+              </div>
+              <div class="  text-muted">
+               <i class="bi bi-alarm-fill"></i> @Html.DisplayFor(modelItem => item.Event.ShowStartDate)
+               <i class="bi bi-geo-alt-fill"></i>@Html.DisplayFor(modelItem=>item.Event.Location)
+              </div>
+            </div>
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Tickets)
+            </td>
+            <th>
+                @Html.DisplayFor(modelItem => item.Event.Price) 
+            </th>
+            <td>
+                <a asp-action="Plus" asp-route-id="@item.WishListId">
+                    
+                    <i class="bi bi-plus-square-fill"></i></a> |
+                <a asp-action="Minus" asp-route-id="@item.WishListId">
+                    
+                 <i class="bi bi-dash-square-fill"></i></a> |
+                <a asp-action="Delete" asp-route-id="@item.WishListId"><i class="bi bi-x-square-fill"></i></a>
+         
+            
+            
+            </td>
+        </tr>
+}
+<tr>
+                <td class="col-2 card-body">                 
+               </td>           
+            <td class="col-6">                               
+             
+            </td>
+            
+            <td>
+              <strong class="text-primary"> Cart Total: </strong>
+            </td>
+           
+            <td>
+                  <h5 class="card-title"> @Html.DisplayFor(modelItem =>modelItem.Booking.OrderTotal )</h5>
+            
+            
+            </td>
+</tr>
+    
+
+</tbody>
+</table>
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-end py-2 mb-4 border-bottom">
+      
+
+      <ul class="nav nav-pills">
+        <li class="nav-item">  
+            <a  asp-area="" asp-controller="WishLists" asp-action="Summary" class=" rounded-pill nav-link active" aria-current="page">Summary</a></li>       
+      </ul>
+    </header>
+  </div>
+
+           

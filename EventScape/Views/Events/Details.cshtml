@@ -9,60 +9,65 @@
 
 <h1>Details</h1>
 
-<div>
-    <h4>Events</h4>
+<div class="row">   
     <hr />
+   <div class="col-6">
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.EventName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.EventName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.ShowStartDate)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.ShowStartDate)
         </dd>
-        <dt class = "col-sm-2">
+       @* <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ShowEndDate)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ShowEndDate)
-        </dd>
-        <dt class = "col-sm-2">
+        </dd>*@
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.Location)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.Location)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.MaxCapacity)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class ="col-sm-9">
             @Html.DisplayFor(model => model.MaxCapacity)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.Description)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-3">
             @Html.DisplayNameFor(model => model.Price)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.Price)
         </dd>
-        <dt class = "col-sm-2">
+        </dl>
+</div>
+ <div class="col-6">
+        <dl>
+        <dt class = "col-sm-3">
            EventPoster
         </dt>
         <dd class = "col-sm-10">
-           <img src="@ImagePath"  class="rounded float-left img-fluid img-thumbnail" asp-append-version="true"  >
+           <img src="@ImagePath"  class="img-fluid img-thumbnail" asp-append-version="true"  >
                
         </dd>
     </dl>
+    </div>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |

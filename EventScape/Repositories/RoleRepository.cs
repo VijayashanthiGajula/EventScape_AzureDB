@@ -13,8 +13,7 @@ namespace EventScape.Repositories
             _context = context;
         }
 
-        
-
+      
         public ICollection<IdentityRole> GetRoles()
         {
             return _context.Roles.ToList();
