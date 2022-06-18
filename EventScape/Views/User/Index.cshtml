@@ -25,8 +25,8 @@
     <tbody>
         @foreach (var user in Model)
             {              
-              <tr class="table-secondary">
-             <th scope="row" hidden >@user.Id</th>
+              <tr scope="row" >
+             <th hidden >@user.Id</th>
                <td>@user.FirstName</td>
                 <td>@user.LastName</td>
                 <td>@user.Email</td>

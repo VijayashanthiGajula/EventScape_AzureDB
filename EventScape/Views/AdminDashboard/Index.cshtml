@@ -6,7 +6,7 @@
 }
 
  
-<div class="align-content-center bg-secondary ">
+<div class="align-content-center  ">
 <h1>Dashboard</h1>
 <!--Counters-->
 <div class="container-fluid py-7">
@@ -85,7 +85,7 @@
 					<div>
 		<table class="table table-striped w-100 ">
 		 <thead>
-				  <tr scope="row">
+				  <tr >
             <th>
                Event
             </th>        
@@ -104,7 +104,7 @@
 		 </thead>
 			<tbody>
 		@foreach (var item in Model.UpcomingEvents) {
-			<tr class="table-secondary"  >
+			<tr scope="row"  >
             <td>
                 @Html.DisplayFor(modelItem => item.EventName)
             </td>
@@ -191,7 +191,7 @@
 					<div class="container-fluid row">
 						<table class="table table-striped w-100 ">
 						 <thead>
-								  <tr scope="row">
+								  <tr >
 							<th>
 							   Event
 							</th>        
@@ -210,7 +210,7 @@
 						 </thead>
 						<tbody>
 						@foreach (var item in Model.BookingRequests) {
-							<tr class="table-secondary" >
+							<tr scope="row"   >
 							<td>
 								@Html.DisplayFor(modelItem => item.Name)
 							</td>   

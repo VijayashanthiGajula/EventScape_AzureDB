@@ -3,12 +3,12 @@
 }
 @model EventScape.Core.Repository.ViewModels.EditUserViewModel
 <main>
-    <div class="py-5 text-center">
+    <div class="py-5">
         <h2>Edit User</h2>
     </div>
 
     <div class="row g-5">
-        <div class="col-md-7 col-lg-8">
+        <div class="col-md-5 col-lg-6">
 
             @using (Html.BeginForm("OnPost", "User"))// best practice using helper tags
             {
@@ -45,7 +45,7 @@
 
                 <h4 class="mb-3">Roles</h4>
 
-                <div class="my-3">
+                <div class="my-3 ">
                     
                     @for (int i = 0; i < @Model.Roles.Count(); i++)
                     {
@@ -57,8 +57,14 @@
                             @Html.HiddenFor(h => @Model.Roles[i].Text)
                         </div>
                     }
-                     <button class="w-100 btn btn-primary btn-lg" type="submit">Save</button>
-                </div>
+                     </div>
+                    <div class="row">
+                       
+                        <div class="col-2"> <button class=" w-100 btn btn-primary " type="submit">Save</button></div>
+                        <div class="col-2">  <a asp-action="Index" class=" btn btn-primary ">Back to List</a></div>
+                     <div class="col-8">   </div>
+                     </div>
+               
 
                 
 
@@ -66,7 +72,7 @@
             }
         </div>
         <div>
-    <a asp-action="Index">Back to List</a>
+  
 </div>
     </div>
 </main>
