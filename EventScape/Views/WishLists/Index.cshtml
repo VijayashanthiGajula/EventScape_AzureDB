@@ -7,26 +7,43 @@
 
 
  <div class="container">
-    <header class="d-flex flex-wrap justify-content-end py-2 mb-4 border-bottom">
+    <header class="d-flex flex-wrap justify-content-end py-2 mb-4  ">
       
 
       <ul class="nav nav-pills">
         <li class="nav-item">  
-            <a  asp-area="" asp-controller="Events" asp-action="UpcomingEvents" class=" rounded-pill nav-link active" aria-current="page">Continue to shopping</a></li>       
+            <a  asp-area="" asp-controller="Events" asp-action="UpcomingEvents" class=" rounded-pill nav-link active" aria-current="page">Back to shopping</a></li>       
       </ul>
     </header>
   </div>
+  
+  @if(@Model.Booking.OrderTotal<=0)
+            {
+                <div class="container">
+      <div class="py-5 text-center">
+                <p class="lead">
+                    <i class="bi bi-emoji-frown"></i> Your Cart is empty
+                   
+             </p>
+              </div>
+                    </div>
+            }
+            else
+            {
+                <div class="container">
+      <div class="py-5 text-center">
+                 <p class="lead">Check the order and continue for Booking</p>
+   
+           
+            </div>
+            </div>
 
-
-@*<p>
-    <a asp-action="Create">Create New</a>
-</p>*@
-<table class="table">
+<table class="table table-striped">
    
     <tbody>
 @foreach (var item in Model.CartItems) {
       var ImagePath = "~/Image/" + (item.Event.EventPosterName?? "noimage.png");
-        <tr class="">
+        <tr scoped="row">
             <td class="col-2 card-body">                 
                 <img src="@ImagePath " class=" img-thumbnail border-0 rounded-4 d-inline-block"  style="width:100%; height:150px;"   asp-append-version="true">
             </td>           
@@ -64,7 +81,7 @@
         </tr>
 }
 <tr>
-                <td class="col-2 card-body">                 
+                <td class="col-2 card-body bottom-border">                 
                </td>           
             <td class="col-6">                               
              
@@ -79,20 +96,22 @@
             
             
             </td>
+            <td></td>
 </tr>
     
 
 </tbody>
 </table>
 <div class="container">
-    <header class="d-flex flex-wrap justify-content-end py-2 mb-4 border-bottom">
+    <header class="d-flex flex-wrap justify-content-end py-2 mb-4 ">
       
 
       <ul class="nav nav-pills">
         <li class="nav-item">  
-            <a  asp-area="" asp-controller="WishLists" asp-action="Summary" class=" rounded-pill nav-link active" aria-current="page">Summary</a></li>       
+            <a  asp-area="" asp-controller="WishLists" asp-action="Summary" class=" rounded-pill nav-link active" aria-current="page">Continue to Booking</a></li>       
       </ul>
     </header>
   </div>
+  }
 
            

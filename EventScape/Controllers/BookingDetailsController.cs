@@ -7,16 +7,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EventScape.Data;
 using EventScape.Models;
+using EventScape.ViewModels;
+using EventScape.Core.Repository;
 
 namespace EventScape.Controllers
 {
     public class BookingDetailsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public BookingDetailsController(ApplicationDbContext context)
+        public BookingDetailsViewModel BookingDetailsVM { get; set; }
+       
+        public BookingDetailsController(ApplicationDbContext context, IUnitOfWork unitOfWOrk)
         {
             _context = context;
+            _unitOfWork = unitOfWOrk;
         }
 
         // GET: BookingDetails
@@ -24,6 +30,17 @@ namespace EventScape.Controllers
         {
             var applicationDbContext = _context.BookingDetails.Include(b => b.Booking).Include(b => b.Event);
             return View(await applicationDbContext.ToListAsync());
+        }
+        public async Task<IActionResult> BookingDetailsByID(int id)
+        {
+            BookingDetailsViewModel BdVM = new BookingDetailsViewModel()
+            {
+                BookingDetailsbyId = _unitOfWork.BookingDetails.GetAll(b => b.BookingID ==id, includeProperties:"Event"),
+
+            };
+            
+
+            return View(BdVM);
         }
 
         // GET: BookingDetails/Details/5

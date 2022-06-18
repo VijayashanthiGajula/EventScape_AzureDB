@@ -8,7 +8,7 @@
 <h1>Booking History</h1>
 
 
-<table class="table">
+<table class="table table-striped table-hover">
     <thead>
         <tr>
               <th>
@@ -29,7 +29,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr itemscope="row">
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>

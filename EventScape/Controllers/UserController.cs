@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EventScape.Controllers
 {
-    [Authorize(Roles = $"{Constants.Roles.Administrator}")]
+   // [Authorize(Roles = $"{Constants.Roles.Administrator}")]
     public class UserController : Controller
     {
         public readonly IUnitOfWork _UnitOfWork;

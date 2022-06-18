@@ -1,7 +1,7 @@
-﻿@model IEnumerable<EventScape.Models.BookingDetails>
+﻿@model  EventScape.ViewModels.BookingDetailsViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "BookingDetailsById";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,25 +12,25 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Booking)
+                Booking
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event)
+                 Event
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.No_Of_Tickets)
+               No_Of_Tickets
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UnitPrice)
+               UnitPrice
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr itemscope="row"   >
+@foreach (var item in Model.BookingDetailsbyId) {
+        <tr itemscope="row" class="table-secondary" >
             <td>
-                @Html.DisplayFor(modelItem => item.Booking.Id)
+                @Html.DisplayFor(modelItem => item.BookingID)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Event.EventName)
@@ -43,8 +43,8 @@
             </td>
             <td>
                
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="UserBookingHistory" asp-controller="Bookings">Back to list</a> 
+               
             </td>
         </tr>
 }
