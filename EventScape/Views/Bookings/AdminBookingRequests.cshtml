@@ -10,46 +10,50 @@
 
   <h1 class="text-primary align-content-center"> New Requests</h1> 
 <table class="table">
-    @*<thead>
+    <thead>
       <tr>
+           @* <th>
+                 ApplicationUser
+            </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.ApplicationUser)
+               User Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookingDate)
+               BookingDate
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OrderTotal)
+               OrderTotal
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookingStatus)
+               BookingStatus
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
+               PhoneNumber
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StreetAddress)
+              StreetAddress
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.City)
+                City
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.State)
+              State
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PostalCode)
+                PostalCode
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
+            
             <th></th>
         </tr>
-    </thead>*@
+    </thead>
     <tbody>
 @foreach (var item in Model.newBookingRequests) {
         <tr>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
+            </td>*@
+              <td>
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BookingDate)
@@ -75,9 +79,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PostalCode)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
+          
             <td>
                 <a asp-action="BookingConfirmation" asp-route-id="@item.Id">Confirm</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
@@ -93,46 +95,43 @@
 
  <h1 class="text-primary align-content-center"> Confirmed Bookings</h1> 
 <table class="table">
-    @*<thead>
+    <thead>
       <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ApplicationUser)
+              <th>
+               User Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookingDate)
+               BookingDate
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OrderTotal)
+               OrderTotal
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookingStatus)
+               BookingStatus
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
+               PhoneNumber
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StreetAddress)
+              StreetAddress
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.City)
+                City
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.State)
+              State
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PostalCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
+                PostalCode
             </th>
             <th></th>
         </tr>
-    </thead>*@
+    </thead>
     <tbody>
 @foreach (var item in Model.ConfirmedBookingRequests) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
+           <td>
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BookingDate)
@@ -158,9 +157,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PostalCode)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
+           
             <td>
                
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
