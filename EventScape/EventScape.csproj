@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20220610040956_SeedEvents.cs" />
+    <Compile Remove="Migrations\20220610040956_SeedEvents.Designer.cs" />
+    <Compile Remove="Migrations\20220612005139_AdminDashboardEventDB.cs" />
+    <Compile Remove="Migrations\20220612005139_AdminDashboardEventDB.Designer.cs" />
+    <Compile Remove="Migrations\20220612102119_RPWishBookingBookingDetailsRepo.cs" />
+    <Compile Remove="Migrations\20220612102119_RPWishBookingBookingDetailsRepo.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Views\AdminDashboard\Index.cshtml" />
   </ItemGroup>
 

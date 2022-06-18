@@ -5,13 +5,19 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EventScape.Migrations
 {
-    public partial class wishListShoppingCartDB : Migration
+    public partial class BookingDetails : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
                 name: "ShowEndDate",
                 table: "Events");
+
+            migrationBuilder.AddColumn<int>(
+                name: "InitialCapacity",
+                table: "Events",
+                type: "int",
+                nullable: true);
 
             migrationBuilder.CreateTable(
                 name: "Booking",
@@ -21,9 +27,10 @@ namespace EventScape.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     BookingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    OrderTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    OrderTotal = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
                     BookingStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StreetAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     State = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -47,9 +54,8 @@ namespace EventScape.Migrations
                 {
                     WishListId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CartId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     EventId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Tickets = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -79,7 +85,7 @@ namespace EventScape.Migrations
                     BookingID = table.Column<int>(type: "int", nullable: false),
                     EventId = table.Column<int>(type: "int", nullable: false),
                     No_Of_Tickets = table.Column<int>(type: "int", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    UnitPrice = table.Column<decimal>(type: "decimal(5,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -134,6 +140,10 @@ namespace EventScape.Migrations
 
             migrationBuilder.DropTable(
                 name: "Booking");
+
+            migrationBuilder.DropColumn(
+                name: "InitialCapacity",
+                table: "Events");
 
             migrationBuilder.AddColumn<DateTime>(
                 name: "ShowEndDate",

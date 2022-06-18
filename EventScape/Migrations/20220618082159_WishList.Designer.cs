@@ -12,14 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventScape.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220615104159_init")]
-    partial class init
+    [Migration("20220618082159_WishList")]
+    partial class WishList
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.5")
+                .HasAnnotation("ProductVersion", "6.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -123,12 +123,16 @@ namespace EventScape.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("OrderTotal")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -171,7 +175,7 @@ namespace EventScape.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.HasKey("Id");
 
@@ -190,9 +194,6 @@ namespace EventScape.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<int?>("AdminDashboardViewModelId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -203,6 +204,9 @@ namespace EventScape.Migrations
                     b.Property<string>("EventPosterName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("InitialCapacity")
+                        .HasColumnType("int");
 
                     b.Property<string>("Location")
                         .IsRequired()
@@ -218,8 +222,6 @@ namespace EventScape.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("AdminDashboardViewModelId");
 
                     b.ToTable("Events");
                 });
@@ -272,10 +274,6 @@ namespace EventScape.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WishListId"), 1L, 1);
 
-                    b.Property<string>("CartId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
@@ -296,22 +294,6 @@ namespace EventScape.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("WishList");
-                });
-
-            modelBuilder.Entity("EventScape.ViewModels.AdminDashboardViewModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("TotalEventsCount")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AdminDashboardViewModel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -481,13 +463,6 @@ namespace EventScape.Migrations
                     b.Navigation("Event");
                 });
 
-            modelBuilder.Entity("EventScape.Models.Events", b =>
-                {
-                    b.HasOne("EventScape.ViewModels.AdminDashboardViewModel", null)
-                        .WithMany("UpcomingEvents")
-                        .HasForeignKey("AdminDashboardViewModelId");
-                });
-
             modelBuilder.Entity("EventScape.Models.UserQueries", b =>
                 {
                     b.HasOne("EventScape.Areas.Identity.Data.ApplicationUser", "ApplicationUser")
@@ -578,11 +553,6 @@ namespace EventScape.Migrations
             modelBuilder.Entity("EventScape.Areas.Identity.Data.ApplicationUser", b =>
                 {
                     b.Navigation("UserQueries");
-                });
-
-            modelBuilder.Entity("EventScape.ViewModels.AdminDashboardViewModel", b =>
-                {
-                    b.Navigation("UpcomingEvents");
                 });
 #pragma warning restore 612, 618
         }

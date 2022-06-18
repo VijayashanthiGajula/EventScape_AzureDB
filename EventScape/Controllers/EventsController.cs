@@ -176,19 +176,21 @@ namespace EventScape.Controllers
                 {
                     await events.EventPosters.CopyToAsync(fileStream);
                 }
-                Events EventsModelObj = new Events
-                {
+                    Events EventsModelObj = new Events
+                    {
 
-                    EventName = events.EventName,
-                    ShowStartDate = events.ShowStartDate,
-                   // ShowEndDate = events.ShowEndDate,
-                    Location = events.Location,
-                    MaxCapacity = events.MaxCapacity,
-                    Description = events.Description,
-                    Price = events.Price,
-                    EventPosterName = EventPosterName
+                        EventName = events.EventName,
+                        ShowStartDate = events.ShowStartDate,
+                        // ShowEndDate = events.ShowEndDate,
+                        Location = events.Location,
+                        MaxCapacity = events.MaxCapacity,
+                        Description = events.Description,
+                        Price = events.Price,
+                        EventPosterName = EventPosterName,
+                        InitialCapacity = events.MaxCapacity
 
-                };
+
+                    };
                     _context.Add(EventsModelObj);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));

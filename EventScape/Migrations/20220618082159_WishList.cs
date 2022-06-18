@@ -4,7 +4,7 @@
 
 namespace EventScape.Migrations
 {
-    public partial class RPWishBookingBookingDetailsRepo : Migration
+    public partial class WishList : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
