@@ -11,9 +11,11 @@ using System.Security.Claims;
 using EventScape.Core.Repository;
 using EventScape.ViewModels;
 using EventScape.Core;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventScape.Controllers
 {
+    [Authorize(Roles = $"{Constants.Roles.UserRole}")]
     public class WishListsController : Controller
     {
         private readonly ApplicationDbContext _context;

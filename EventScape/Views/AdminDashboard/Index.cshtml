@@ -169,34 +169,23 @@
 					<div class="me-2">
 						<h4>User Queries</h4>
 					</div>
+	 					@foreach (var item in Model.UserQueries)
+						 {
+			
+							<div class="row">
 					
-					<div class="row">
-					
-				<div class="my-3 p-3 bg-white rounded box-shadow ">
-        
-        <div class="media text-muted pt-3">
-			<i class="bi bi-chat-dots-fill"></i> <span><strong class=" text-gray-dark">username</strong></span>
-          <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+										     
+										<div class="media text-muted pt-3">
+											<i class="bi bi-chat-dots-fill"></i> <span><strong class=" text-gray-dark">@item.ApplicationUser.FirstName</strong></span>
+										  <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">           
+											@item.Query
+										  </p>
+										</div>
            
-            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-          </p>
-        </div>
-        <div class="media text-muted pt-3">
-			<i class="bi bi-chat-dots-fill"></i> <span><strong class=" text-gray-dark">username</strong></span>
-            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-             
-            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-          </p>
-        </div>
-        <div class="media text-muted pt-3">
-          <i class="bi bi-chat-dots-fill"></i> <span><strong class=" text-gray-dark">username</strong></span> <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-          
-            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-          </p>
-        </div>       
-      </div>
+								 
 					
-					</div>
+									</div>
+						}
 				</div>
 			</div>
 		</div>

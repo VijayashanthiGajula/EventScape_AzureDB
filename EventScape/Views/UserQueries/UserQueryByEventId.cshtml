@@ -2,7 +2,7 @@
 @model EventScape.Models.UserQueries
 
 @{
-    ViewData["Title"] = "UserQueryById";
+    ViewData["Title"] = "UserQueryByEventId";
     Layout = "~/Views/Shared/_Layout.cshtml";
      var ImagePath = "~/Image/" + (@Model.Events.EventPosterName?? "noimage.png");
 }
@@ -41,18 +41,27 @@
             </div>
          
             
-                <input asp-for="Status" value="@Constants.Status.QueryStatusActive" class="form-control" />
-               
+             <div class="form-group row py-5">
+                <div class="col">
+                     <a asp-action="UpcomingEvents" asp-controller="Events" class="btn btn-success">Back to List</a>
+                 <button type="submit" class="btn btn-dark" asp-action="UserQueryById">Post a Query</button>
+                  
+                </div>
+                
+                  <div class="col-8">
+
+                  </div>
+            </div>  
+                
+
             <div class="form-group">
                 
-                <button type="submit" class="btn btn-dark" asp-action="UserQueryById">Post a Query</button>
+              
             </div>
         </form>
                     </div>
                 </div>
                 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 

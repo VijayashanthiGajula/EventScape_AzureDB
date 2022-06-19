@@ -9,6 +9,8 @@ using EventScape.Data;
 using EventScape.Models;
 using EventScape.ViewModels;
 using EventScape.Core.Repository;
+using Microsoft.AspNetCore.Authorization;
+using EventScape.Core;
 
 namespace EventScape.Controllers
 {
@@ -26,6 +28,7 @@ namespace EventScape.Controllers
         }
 
         // GET: BookingDetails
+        [Authorize(Roles = $"{Constants.Roles.UserRole}")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.BookingDetails.Include(b => b.Booking).Include(b => b.Event);

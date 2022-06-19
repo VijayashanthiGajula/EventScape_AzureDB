@@ -78,7 +78,7 @@
                                     <a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="AdminBookingRequests">Bookings Requests</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="UserQueries" asp-action="Index">UserQueries</a>
+                                    <a class="nav-link text-white" asp-area="" asp-controller="UserQueries" asp-action="AdminUserQueries">UserQueries</a>
                                 </li>
 
                             </ul>
@@ -89,9 +89,7 @@
                             <ul class=" navbar-nav navbar-expand-lg navbar-toggleable-sm" id="NonUserNavBar">
                                 <li class="nav-item ">
                                     <a class="nav-link text-white "  asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                                </li>
-
-                                 
+                                </li>                                 
 
                                 <li class="nav-item">
                                     <a class="nav-link text-white" asp-area="" asp-controller="Events" asp-action="UpcomingEvents">UserEvent</a>
@@ -118,26 +116,30 @@
                     else
                     {
                     
-                    <ul class=" navbar-nav navbar-expand-lg navbar-toggleable-sm" id="NonUserNavBar">
-                            <li class="nav-item ">
-                                <a class="nav-link text-white "  asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                             <li class="nav-item ">
-                                <a class="nav-link text-white "  asp-area="" asp-controller="User" asp-action="Index">Users</a>
-                            </li>
+                   
+                            <ul class=" navbar-nav navbar-expand-lg navbar-toggleable-sm" id="NonUserNavBar">
+                                <li class="nav-item ">
+                                    <a class="nav-link text-white "  asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>                                 
 
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Events" asp-action="UpcomingEvents">UserEvent</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Events" asp-action="UpcomingEvents">UserEvent</a>
+                                </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="WishLists" asp-action="Index">WishList</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="UserBookingHistory">Bookings</a>
+                                </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="BookingDetails" asp-action="Index">Booked Events </a>
+                                </li>
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="UserQueries" asp-action="Create">Contact Us</a>
+                                </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Bookings" asp-action="Create">Booking an Event</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="UserQueries" asp-action="Create">Contact Us</a>
-                            </li>
-
-                        </ul>
+                            </ul>
                     }
                 </div>
                   

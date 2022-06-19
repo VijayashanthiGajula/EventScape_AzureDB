@@ -38,12 +38,15 @@
                 <label asp-for="Reply" class="control-label"></label>
                 <input asp-for="Reply" class="form-control" />
                 <span asp-validation-for="Reply" class="text-danger"></span>
-            </div>
+            </div>*@
+              <input asp-for="DatePosted" hidden class="form-control" />
+                <input asp-for="Reply" hidden  class="form-control" />
+                <input asp-for="UserId" hidden  class="form-control" asp-items="ViewBag.UserId" />
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
+                <input asp-for="Status" class="form-control text-muted" />
                 <span asp-validation-for="Status" class="text-danger"></span>
-            </div>*@
+            </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

@@ -74,6 +74,28 @@ namespace EventScape.Controllers
         }
 
 
+        public async Task<IActionResult> ComingSoon(string searchString)
+        {
+
+            ViewData["CurrentFilter"] = searchString;
+            var Events = from s in _context.Events
+                         select s;
+
+            if (Events != null)
+            {
+                Events = Events.Where(s => s.ShowStartDate >= DateTime.Now.AddDays(7));
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    Events = Events.Where(s => s.Location.Contains(searchString));
+                }
+            }
+            return _context.Events != null ?
+
+                         View(await Events.AsNoTracking().ToListAsync()) :
+                         Problem("Entity set 'ApplicationDbContext.Events'  is null.");
+        }
+
+
         // GET: Events/Details/5  ******   Admin  *********** 
         [Authorize(Roles = $"{Constants.Roles.Administrator}")]
         public async Task<IActionResult> Details(int? id)

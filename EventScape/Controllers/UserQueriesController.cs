@@ -11,6 +11,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using EventScape.Core.Repository;
 using EventScape.Core;
+using EventScape.ViewModels;
 
 namespace EventScape.Controllers
 {
@@ -23,11 +24,23 @@ namespace EventScape.Controllers
             _context = context;
             _UnitOfWork = unitOfWork;
         }
-
+        public UserQueriesViewModel UserQueriesViewModel { get; set; }
         // GET: UserQueries
         public async Task<IActionResult> Index()
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            var applicationDbContext = _context.UserQueries
+                .Include(u => u.ApplicationUser)
+                .Include(u => u.Events)
+                .Where(u=>u.UserId==claim.Value);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> AdminUserQueries()
+        {
             var applicationDbContext = _context.UserQueries.Include(u => u.ApplicationUser).Include(u => u.Events);
+
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -51,7 +64,7 @@ namespace EventScape.Controllers
             return View(userQueries);
         }
         // GET:UserQueryById
-        public async Task<IActionResult> UserQueryById(int? eventId)
+        public async Task<IActionResult> UserQueryByEventId(int? eventId)
         {
             
 

@@ -10,6 +10,7 @@ using EventScape.Models;
 using EventScape.Core.Repository;
 using EventScape.Core;
 using EventScape.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventScape.Controllers
 {
@@ -24,7 +25,7 @@ namespace EventScape.Controllers
             _context = context;
             _unitOfWork = unitOfWOrk;
         }
-
+        [Authorize(Roles = $"{Constants.Roles.UserRole}")]
         // GET: Users page- booking history
         public async Task<IActionResult> UserBookingHistory()
         {

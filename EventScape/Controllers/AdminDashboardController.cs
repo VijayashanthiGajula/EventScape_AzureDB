@@ -35,7 +35,8 @@ namespace EventScape.Controllers
                     RegisteredUsers = _unitOfWork.User.GetUsers().Count(),
                     TotalEarnings = _unitOfWork.Booking.GetAll().Sum(b => b.OrderTotal),
                     UpcomingEvents = eventslist as IEnumerable<Events>,
-                    BookingRequests = _context.Booking.OrderBy(b => b.BookingDate).Take(5)
+                    BookingRequests = _context.Booking.OrderBy(b => b.BookingDate).Take(5),
+                    UserQueries=_unitOfWork.UserQueries.GetAll(q=>q.Status==Constants.Status.QueryStatusActive).Take(5),
 
                 };
             return View(model);
