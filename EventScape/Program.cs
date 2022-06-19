@@ -92,6 +92,7 @@ void AddScoped()
     builder.Services.AddScoped<IBookingDetailsRepository, BookingDetailsRepository>();
     builder.Services.AddScoped<IBookingRepository, BookingRepository>();
     builder.Services.AddScoped<IWishListRepository, WishListRepository>();
+    builder.Services.AddScoped<IUserQueriesRepository, UserQueriesRepository>();
     builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 }

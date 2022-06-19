@@ -95,20 +95,7 @@ namespace EventScape.Controllers
         // GET: Events/Details/5*****************  User details  *************************************************************************************************************
         public async Task<IActionResult> UserEventDetails(int? eventId)
         {
-
-            //if (id == null || _context.Events == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //var events = await _context.Events.FirstOrDefaultAsync(m => m.ID == id);
-            //if (events == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //return View(events);
-            // ********************* Shoppingcart.cs approach******************8
+            // ***** Shoppingcart.cs approach****
 
             WishList Obj = new WishList()
             {

@@ -9,6 +9,7 @@ namespace EventScape.Core.Repository
         IWishListRepository WishList { get; }
         IBookingDetailsRepository BookingDetails { get; }
         IBookingRepository Booking { get; }
+        IUserQueriesRepository UserQueries { get; }
         void Save();
        
     }

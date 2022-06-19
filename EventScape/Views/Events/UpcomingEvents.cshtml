@@ -33,22 +33,7 @@
          @foreach (var item in Model)
          {
             var ImagePath = "~/Image/" + (item.EventPosterName?? "noimage.png");      
-              @*  <div class="col">
-                   <div class="card rounded shadow-sm"   >
-                      <img src="@ImagePath" class="card-img-top" width="100%" height="225"   alt=""  asp-append-version="true">
-                      <div class="card-body">
-                        <h4 class="card-title text-right">@Html.DisplayFor(modelItem => item.EventName)</h4>
-                       @* <p class="card-text "  style="  height: 100px;  overflow: auto;"> @item.Description </p>
-                        *@ @*<div class="d-flex justify-content-between align-items-center">
-                        <small class="text-muted p-1">@item.MaxCapacity</small>
-                         <small class="text-muted p-1">$@item.Price</small>
-                          <small class="text-muted p-1">@item.Location</small>
-                          </div>
-                      </div>
-                    
-                      <div class="card-footer"> <a  asp-action="UserEventDetails" asp-route-eventId="@item.ID" class="btn btn-primary">View </a></div>                      
-                   </div> 
-                   </div>*@
+          
             <div class="movie_card" id="bright">
                   <div class="info_section">
                         
@@ -71,8 +56,13 @@
                         </div>
                          <div class="movie_desc">
                              <p class="text">   @item.Description  </p>
+                            
                              <a asp-action="UserEventDetails" asp-route-eventId="@item.ID" 
                              class="btn btn-primary rounded-pill"> Click to view </a>
+
+                              <a asp-action="UserQueryById" asp-controller="UserQueries" asp-route-eventId="@item.ID" 
+                             class="btn btn-primary rounded-pill"> Enquire </a>
+                             
                          </div>
                      <div class="movie_social">
                       <ul>                          

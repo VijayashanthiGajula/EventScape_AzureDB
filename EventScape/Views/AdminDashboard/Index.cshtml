@@ -145,7 +145,9 @@
 						<li class="nav-item mb-3">						 
 							<div class="row"><label class="col-8">Drama</label> <label class="col-4" id="tickets">@e.InitialCapacity/@e.MaxCapacity</label></div>
 							<div class="progress">
-							 <div class="progress-bar progress-bar-striped" role="progressbar" style="width:@(e.MaxCapacity)%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+							 <div class="progress-bar progress-bar-striped" role="progressbar"
+							 style="width:@e.InitialCapacity%;" aria-valuenow="10" aria-valuemin="0"
+							 aria-valuemax="100"></div>
 							</div>						 
 						</li>
 						}
@@ -160,15 +162,39 @@
 </div>
 <div class="container-fluid py-7">
 	<div class="row rounded-3 row-cols-1 row-cols-md-1   row-cols-lg-2 py-4 g-4 ">
-		<div class="col">
-			<div class="card card-body rounded-3 shadow-lg">
-				<div class="d-inline-flex align-items-center" style="min-height:400px">
+		<!--Booking Req -->
+	<div class="col">
+			<div class="card card-body rounded-3  shadow-lg">
+				<div class=" align-items-left" style="min-height:400px">
 					<div class="me-2">
 						<h4>User Queries</h4>
 					</div>
-					<div>
 					
-				
+					<div class="row">
+					
+				<div class="my-3 p-3 bg-white rounded box-shadow ">
+        
+        <div class="media text-muted pt-3">
+			<i class="bi bi-chat-dots-fill"></i> <span><strong class=" text-gray-dark">username</strong></span>
+          <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+           
+            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+          </p>
+        </div>
+        <div class="media text-muted pt-3">
+			<i class="bi bi-chat-dots-fill"></i> <span><strong class=" text-gray-dark">username</strong></span>
+            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+             
+            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+          </p>
+        </div>
+        <div class="media text-muted pt-3">
+          <i class="bi bi-chat-dots-fill"></i> <span><strong class=" text-gray-dark">username</strong></span> <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+          
+            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+          </p>
+        </div>       
+      </div>
 					
 					</div>
 				</div>
@@ -176,12 +202,13 @@
 		</div>
 		
 	<div class="col">
-			<div class="card card-body rounded-3 shadow-lg ">
-				<div class="d-inline-flex align-items-center" style="min-height:400px">
-					<div class="me-2 row ">
+			<div class="card card-body rounded-3  shadow-lg">
+				<div class=" align-items-left" style="min-height:400px">
+					<div class="me-2">
 						<h4>Booking Requests</h4>
-					</div><br/>
-					<div class="container-fluid row">
+					</div>
+					
+					<div >
 						<table class="table table-striped w-100 ">
 						 <thead>
 								  <tr >
@@ -203,7 +230,7 @@
 						 </thead>
 						<tbody>
 						@foreach (var item in Model.BookingRequests) {
-							<tr scope="row"   >
+							<tr scope="row">
 							<td>
 								@Html.DisplayFor(modelItem => item.Name)
 							</td>   

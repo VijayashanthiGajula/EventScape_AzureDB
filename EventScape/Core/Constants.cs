@@ -15,8 +15,8 @@
         {
             public const string BookingPending = "OnHold";
             public const string BookingConfirmed = "Confirmed";
-            public const string QueryStatusActive = "OnHold";
-            public const string QueryStatusClosed = "Confirmed";
+            public const string QueryStatusActive = "Waiting For Reply";
+            public const string QueryStatusClosed = "Replied";
         }
         public static class Policies
         {

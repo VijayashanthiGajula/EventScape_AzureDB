@@ -12,19 +12,23 @@ namespace EventScape.Repositories
         public IBookingDetailsRepository BookingDetails { get; }
         public IBookingRepository Booking { get; }
         public IWishListRepository WishList { get; }
+
+        public IUserQueriesRepository UserQueries { get; }
+
         private ApplicationDbContext _context;
         
        
 
         public UnitOfWork(IUserRepository user, IRoleRepository role, IWishListRepository wishlist,
-            IBookingRepository booking, IBookingDetailsRepository bookingdetails , ApplicationDbContext context)
+            IBookingRepository booking, IUserQueriesRepository userQueries, IBookingDetailsRepository bookingdetails , ApplicationDbContext context)
         {
             User = user;
             Role = role;
             Booking = booking;
             BookingDetails = bookingdetails;
             WishList= wishlist;
-            _context= context;
+            UserQueries = userQueries;
+            _context = context;
 
 
         }
